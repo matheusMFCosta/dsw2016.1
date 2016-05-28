@@ -34,14 +34,34 @@ public class acesso {
 	private Date data;
 	private int numeroLogins ;
 	private Date ultimoLogin;
-	
+	private int idOfertaVenda ;
+	private int idOfertaCompra;
+	private int idUsuario;
+	private String token;
+	private Date minhaData;
+	private String numeroBanco;
+	private String numeroAgencia;
+	private String numeroConta;
+	private float valor;
+	private String historico;
+	private int operacao ;
+	private int idPersonagem;
+	private int quantidade;
+	private int tipo;
+	private float quantidadeOriginal;
+	private float precoUnitario;
+	private int status;
+	private int idOrdemOriginal;
+
+
+
 	
 	
 	
 	public acesso() throws SQLException {
 		super();
 		this.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DSW", "root" , "123456");
-		Statement myStmtGetusuario = myConn.createStatement();
+
 	}
 	
 	public void clearTables() throws SQLException{
@@ -66,87 +86,99 @@ public class acesso {
 		return myRSGetUsuario.getInt("id");
 	}
 	
-	public int getIdentificadorUsuario(String email) throws SQLException{
-		Statement myStmtGetusuario = myConn.createStatement();
-		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select id from usuarios Where email='"+email+"'");
-		myRSGetUsuario.next();
-		return myRSGetUsuario.getInt("id");
-	}
+//	public int getIdentificadorUsuario(String email) throws SQLException{
+//		Statement myStmtGetusuario = myConn.createStatement();
+//		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select id from usuarios Where email='"+email+"'");
+//		myRSGetUsuario.next();
+//		return myRSGetUsuario.getInt("id");
+//	}
 	
 	//-------------------------------------------------//
 
 	public void getCasamentosOfertaTable() throws SQLException{
+		
+
+		casamentosOferta casamento;
 		Statement myStmtGetusuario = myConn.createStatement();
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from casamentosOferta");
 		while (myRSGetUsuario.next()) {
-			int idOfertaVenda = myRSGetUsuario.getInt("idOfertaVenda");
-			int idOfertaCompra = myRSGetUsuario.getInt("idOfertaCompra");
-			Date data = myRSGetUsuario.getDate("dataExecucao");
-			casamentosOferta casamento = new casamentosOferta (idOfertaVenda,idOfertaCompra,data);
+			idOfertaVenda = myRSGetUsuario.getInt("idOfertaVenda");
+			idOfertaCompra = myRSGetUsuario.getInt("idOfertaCompra");
+			data = myRSGetUsuario.getDate("dataExecucao");
+			casamento = new casamentosOferta (idOfertaVenda,idOfertaCompra,data);
 			System.out.println(casamento);
 		}
 		System.out.println();
 		
 	}
+
 	public void getPersonagensTable() throws SQLException {
+
+		
 		Statement myStmtGetusuario = myConn.createStatement();
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from personagens");
 		while (myRSGetUsuario.next()) {
 			id = myRSGetUsuario.getInt("id");
-			String nome = myRSGetUsuario.getString("nome");
+			nome = myRSGetUsuario.getString("nome");
 			personagens meuPersonagem = new personagens(id,nome);
 			System.out.println(meuPersonagem);
 		}
 		System.out.println();
 	}
 	
-	public void getUsuariosTable() throws SQLException{
-		usuarios meuUsuario = null;
-		
-		Statement myStmtGetusuario = myConn.createStatement();
-		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from usuarios");
-		while (myRSGetUsuario.next()) {
-			id = myRSGetUsuario.getInt("id");
-			cpf = myRSGetUsuario.getString("cpf");
-			email = myRSGetUsuario.getString("email");
-			nome = myRSGetUsuario.getString("nome");
-			telefone = myRSGetUsuario.getString("telefone");
-			senha = myRSGetUsuario.getString("senha");
-			administrador = myRSGetUsuario.getBoolean("administrator");
-			ultimoLogin = myRSGetUsuario.getDate("ultimoLogin");
-			numeroLogins = myRSGetUsuario.getInt("numeroLogins");
-			meuUsuario = new usuarios(id,nome,telefone,cpf,senha,"foto",administrador,ultimoLogin,numeroLogins);
-			System.out.println(meuUsuario);
-		}
-		System.out.println();
-	}
+//	public void getUsuariosTable() throws SQLException{
+//		usuarios meuUsuario = null;
+//
+//		
+//		Statement myStmtGetusuario = myConn.createStatement();
+//		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from usuarios");
+//		while (myRSGetUsuario.next()) {
+//			id = myRSGetUsuario.getInt("id");
+//			cpf = myRSGetUsuario.getString("cpf");
+//			email = myRSGetUsuario.getString("email");
+//			nome = myRSGetUsuario.getString("nome");
+//			telefone = myRSGetUsuario.getString("telefone");
+//			senha = myRSGetUsuario.getString("senha");
+//			administrador = myRSGetUsuario.getBoolean("administrator");
+//			ultimoLogin = myRSGetUsuario.getDate("ultimoLogin");
+//			numeroLogins = myRSGetUsuario.getInt("numeroLogins");
+//			meuUsuario = new usuarios(id,nome,telefone,cpf,senha,"foto",administrador,ultimoLogin,numeroLogins);
+//			System.out.println(meuUsuario);
+//		}
+//		System.out.println();
+//	}
 
-	public void getTokensTable() throws SQLException{
-
-		Statement myStmtGetusuario = myConn.createStatement();
-		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from tokens");
-		while (myRSGetUsuario.next()) {
-			id = myRSGetUsuario.getInt("id");
-			int idUsuario = myRSGetUsuario.getInt("idUsuario");
-			String token = myRSGetUsuario.getString("token");
-			Date minhaData = myRSGetUsuario.getDate("validade");
-			tokens meuToken = new tokens(id,idUsuario,token,minhaData);
-			System.out.println(meuToken);
-		}
-		System.out.println();
-	}
+//	public void getTokensTable() throws SQLException{
+//
+//		
+//
+//		Statement myStmtGetusuario = myConn.createStatement();
+//		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from tokens");
+//		while (myRSGetUsuario.next()) {
+//			id = myRSGetUsuario.getInt("id");
+//			idUsuario = myRSGetUsuario.getInt("idUsuario");
+//			token = myRSGetUsuario.getString("token");
+//			minhaData = myRSGetUsuario.getDate("validade");
+//			tokens meuToken = new tokens(id,idUsuario,token,minhaData);
+//			System.out.println(meuToken);
+//		}
+//		System.out.println();
+//	}
 
 	public void getTransferencia() throws SQLException{
+		
+
+		
 		Statement myStmtGetusuario = myConn.createStatement();
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from transferencias");
 		while (myRSGetUsuario.next()) {
 			id = myRSGetUsuario.getInt("id");
-			int idUsuario = myRSGetUsuario.getInt("idUsuario");
+			idUsuario = myRSGetUsuario.getInt("idUsuario");
 			java.util.Date minhaData = myRSGetUsuario.getDate("data");
-			String numeroBanco = myRSGetUsuario.getString("numeroBanco");
-			String numeroAgencia = myRSGetUsuario.getString("numeroAgencia");
-			String numeroConta = myRSGetUsuario.getString("numeroConta");
-			float valor =   myRSGetUsuario.getFloat("valor");
+			numeroBanco = myRSGetUsuario.getString("numeroBanco");
+			numeroAgencia = myRSGetUsuario.getString("numeroAgencia");
+			numeroConta = myRSGetUsuario.getString("numeroConta");
+			valor =   myRSGetUsuario.getFloat("valor");
 			transferencias minhaTransferencia= new transferencias(id,idUsuario,minhaData,numeroBanco,numeroAgencia,numeroConta,valor);
 			System.out.println(minhaTransferencia);
 		}
@@ -154,15 +186,16 @@ public class acesso {
 	}
 
 	public void getLancamentosDinheiro() throws SQLException {
+
 		Statement myStmtGetusuario = myConn.createStatement();
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from lancamentosDinheiro");
 		while (myRSGetUsuario.next()) {
 			id = myRSGetUsuario.getInt("id");
-			int idUsuario = myRSGetUsuario.getInt("idUsuario");
+			idUsuario = myRSGetUsuario.getInt("idUsuario");
 			java.util.Date minhaData = myRSGetUsuario.getDate("data");
-			String historico = myRSGetUsuario.getString("historico");
-			float valor =   myRSGetUsuario.getFloat("valor");
-			int operacao = myRSGetUsuario.getInt("operacao");
+			historico = myRSGetUsuario.getString("historico");
+			valor =   myRSGetUsuario.getFloat("valor");
+			operacao = myRSGetUsuario.getInt("operacao");
 			lancamentosDinheiro meuLancamentoDinheiro = new lancamentosDinheiro(id,idUsuario,minhaData,historico,valor,operacao);
 			System.out.println(meuLancamentoDinheiro);
 		}
@@ -170,16 +203,18 @@ public class acesso {
 	}
 	
 	public void getLancamentosPersonagem() throws SQLException{
+
+		
 		Statement myStmtGetusuario = myConn.createStatement();
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from lancamentosPersonagem");
 		while (myRSGetUsuario.next()) {
 			id = myRSGetUsuario.getInt("id");
-			int idPersonagem = myRSGetUsuario.getInt("idPersonagem");
-			int idUsuario = myRSGetUsuario.getInt("idUsuario");
+			idPersonagem = myRSGetUsuario.getInt("idPersonagem");
+			idUsuario = myRSGetUsuario.getInt("idUsuario");
 			java.util.Date minhaData = myRSGetUsuario.getDate("data");
-			String historico = myRSGetUsuario.getString("historico");
+			historico = myRSGetUsuario.getString("historico");
 			int quantidade = myRSGetUsuario.getInt("quantidade");
-			float valor =   myRSGetUsuario.getFloat("precoUnitario");
+			valor =   myRSGetUsuario.getFloat("precoUnitario");
 			int operacao = myRSGetUsuario.getInt("operacao");
 
 			lancamentosPersonagem meuLancamentoPersonagem = new lancamentosPersonagem(id,idPersonagem,idUsuario,minhaData,historico,quantidade,valor,operacao);
@@ -189,22 +224,23 @@ public class acesso {
 	}
 	
 	public void getOfertasTable() throws SQLException {
+
 		
 		
 		
 		Statement myStmtGetusuario = myConn.createStatement();
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from ofertas");
 		while (myRSGetUsuario.next()) {
-			int id = myRSGetUsuario.getInt("id");
-			int tipo = myRSGetUsuario.getInt("tipo"); 
-			int idPersonagem = myRSGetUsuario.getInt("idPersonagem");
-			int idUsuario = myRSGetUsuario.getInt("idUsuario");
+			id = myRSGetUsuario.getInt("id");
+			tipo = myRSGetUsuario.getInt("tipo"); 
+			idPersonagem = myRSGetUsuario.getInt("idPersonagem");
+			idUsuario = myRSGetUsuario.getInt("idUsuario");
 			java.util.Date minhaData = myRSGetUsuario.getDate("data");
 			float quantidade = myRSGetUsuario.getFloat("quantidade");
-			float quantidadeOriginal = myRSGetUsuario.getFloat("quantidadeOriginal");
-			float precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
-			int status =  myRSGetUsuario.getInt("status");
-			int idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
+			quantidadeOriginal = myRSGetUsuario.getFloat("quantidadeOriginal");
+			precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
+			status =  myRSGetUsuario.getInt("status");
+			idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
 
 					
 			ofertas minhasOfertas = new ofertas(id, tipo,idPersonagem,idUsuario, minhaData, quantidade, quantidadeOriginal, precoUnitario, status ,  idOrdemOriginal);
@@ -238,73 +274,73 @@ public class acesso {
 		
 	}
 	
-	public void setUsuario(String nome,String telefone,String cpf,String email,String senha) throws SQLException{
-		
-	CallableStatement  myStmtInserirUsuario = myConn.prepareCall("{call inserirUsuario(?,?,?,?,?)}");
-	////( Inome VARCHAR(80), Itelefone VARCHAR(20), Icpf VARCHAR(14) , Iemail VARCHAR(40), Isenha VARCHAR(255))
-	myStmtInserirUsuario.setString(1,nome);
-	myStmtInserirUsuario.setString(2,telefone);
-	myStmtInserirUsuario.setString(3,cpf);
-	myStmtInserirUsuario.setString(4,email);
-	myStmtInserirUsuario.setString(5,senha);
-	myStmtInserirUsuario.execute();
-				
-	}
+//	public void setUsuario(String nome,String telefone,String cpf,String email,String senha) throws SQLException{
+//		
+//	CallableStatement  myStmtInserirUsuario = myConn.prepareCall("{call inserirUsuario(?,?,?,?,?)}");
+//	////( Inome VARCHAR(80), Itelefone VARCHAR(20), Icpf VARCHAR(14) , Iemail VARCHAR(40), Isenha VARCHAR(255))
+////	myStmtInserirUsuario.setString(1,nome);
+////	myStmtInserirUsuario.setString(2,telefone);
+////	myStmtInserirUsuario.setString(3,cpf);
+////	myStmtInserirUsuario.setString(4,email);
+////	myStmtInserirUsuario.setString(5,senha);
+////	myStmtInserirUsuario.execute();
+////				
+////	}
+//
+//	public void inserirPersonagemTabela(String nome) throws SQLException{
+//
+//	      String query = " insert into personagens (nome)"
+//	    	        + " values (?)";
+//	    	      PreparedStatement preparedStmt = (PreparedStatement) myConn.prepareStatement(query);
+//	    	      preparedStmt.setString (1,nome);
+//	    	      preparedStmt.execute();
+//
+//					
+//		
+//	}
 
-	public void inserirPersonagemTabela(String nome) throws SQLException{
+//	public void editUsuario(int id,String nome,String telefone,String cpf,String foto) throws SQLException{
+//		CallableStatement myStmtEditUsuario = myConn.prepareCall("{call EditarUsuario(?,?,?,?,?)}");
+//		//(IidUsuario INTEGER ,Inome VARCHAR(80), Itelefone VARCHAR(20), Icpf VARCHAR(14), Ifoto blob)
+//		
+//		myStmtEditUsuario.setInt(1,id);
+//		myStmtEditUsuario.setString(2,nome);
+//		myStmtEditUsuario.setString(3,telefone);
+//		myStmtEditUsuario.setString(4,cpf);
+//		myStmtEditUsuario.setString(5,foto);
+//		myStmtEditUsuario.execute();
+//	}
 
-	      String query = " insert into personagens (nome)"
-	    	        + " values (?)";
-	    	      PreparedStatement preparedStmt = (PreparedStatement) myConn.prepareStatement(query);
-	    	      preparedStmt.setString (1,nome);
-	    	      preparedStmt.execute();
+//	public void trocaSenha(int id, String senha) throws SQLException{
+//		CallableStatement myStmtTrocaSenha = myConn.prepareCall("{call TrocarSenha(?,?)}");
+//		//(IidUsuario int , Isenha VARCHAR(255))
+//		myStmtTrocaSenha.setInt(1,id);
+//		myStmtTrocaSenha.setString(2,senha);
+//		myStmtTrocaSenha.execute();	
+//	}
 
-					
-		
-	}
+//	public void indicaFalha(int id) throws SQLException{
+//		CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginFalha(?)}");
+//		myStmt.setInt(1,id);
+//		myStmt.execute();
+//	}
+//	
+//	public void indicaSucesso(int id) throws SQLException{
+//		CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginSucesso(?)}");
+//		myStmt.setInt(1,1);
+//		myStmt.execute();
+//
+//	}
 
-	public void editUsuario(int id,String nome,String telefone,String cpf,String foto) throws SQLException{
-		CallableStatement myStmtEditUsuario = myConn.prepareCall("{call EditarUsuario(?,?,?,?,?)}");
-		//(IidUsuario INTEGER ,Inome VARCHAR(80), Itelefone VARCHAR(20), Icpf VARCHAR(14), Ifoto blob)
-		
-		myStmtEditUsuario.setInt(1,id);
-		myStmtEditUsuario.setString(2,nome);
-		myStmtEditUsuario.setString(3,telefone);
-		myStmtEditUsuario.setString(4,cpf);
-		myStmtEditUsuario.setString(5,foto);
-		myStmtEditUsuario.execute();
-	}
-
-	public void trocaSenha(int id, String senha) throws SQLException{
-		CallableStatement myStmtTrocaSenha = myConn.prepareCall("{call TrocarSenha(?,?)}");
-		//(IidUsuario int , Isenha VARCHAR(255))
-		myStmtTrocaSenha.setInt(1,id);
-		myStmtTrocaSenha.setString(2,senha);
-		myStmtTrocaSenha.execute();	
-	}
-
-	public void indicaFalha(int id) throws SQLException{
-		CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginFalha(?)}");
-		myStmt.setInt(1,id);
-		myStmt.execute();
-	}
-	
-	public void indicaSucesso(int id) throws SQLException{
-		CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginSucesso(?)}");
-		myStmt.setInt(1,1);
-		myStmt.execute();
-
-	}
-
-	public void insereToken(int id,String token,Date validade) throws SQLException{
-		//(IidUsuario VARCHAR(14), Itoken VARCHAR(40), Ivalidade DATE)
-		CallableStatement  myStmt = myConn.prepareCall("{call InserirToken(?,?,?)}");
-		myStmt.setInt(1,id);
-		myStmt.setString(2,token);
-		myStmt.setDate(3,(java.sql.Date) validade);
-		myStmt.execute();	
-
-	}
+//	public void insereToken(int id,String token,Date validade) throws SQLException{
+//		//(IidUsuario VARCHAR(14), Itoken VARCHAR(40), Ivalidade DATE)
+//		CallableStatement  myStmt = myConn.prepareCall("{call InserirToken(?,?,?)}");
+//		myStmt.setInt(1,id);
+//		myStmt.setString(2,token);
+//		myStmt.setDate(3,(java.sql.Date) validade);
+//		myStmt.execute();	
+//
+//	}
 
 	public void registaTransferencia(int idUsuario,String numeroBanco,String numeroAgencia,String numeroConta, float valor ) throws SQLException{
 		//(IidUsuario INT, Ibanco VARCHAR(3), Iagencia VARCHAR(6), Iconta VARCHAR(10), Ivalor FLOAT)
