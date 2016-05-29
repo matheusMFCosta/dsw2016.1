@@ -7,15 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/dsw/register" method="post">  
+<form action="/dsw/createUser.do" method="post">  
   
 Name:<input type="text" name="userName"/><br/><br/>  
 Password:<input type="password" name="userPass"/><br/><br/>  
 Email Id:<input type="text" name="userEmail"/><br/><br/>  
 CPF:<input type="text" name="userCPF"/><br/><br/>  
 telefone:<input type="text" name="userPhone"/><br/><br/>  
-
-
   
 <br/><br/>  
 <input type="submit" value="register"/>

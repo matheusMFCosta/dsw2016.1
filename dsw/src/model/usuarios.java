@@ -27,6 +27,7 @@ public @Data class usuarios {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.email = email;
 		this.telefone = telefone;
 		this.cpf = cpf;
 		this.senha = senha;

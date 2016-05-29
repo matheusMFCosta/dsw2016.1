@@ -17,10 +17,9 @@ public class UserTable  extends SimpleTagSupport {
 	usuarioAcesso meuUAcesso = new usuarioAcesso();
 	ArrayList<usuarios> meuUsuarioList =  meuUAcesso.getUsuariosTable();
 	
-	
 	out.write("<form>");
 	out.write("        <fieldset style=\"width: 300px\">"+
-            "<legend> Login to App </legend>");
+            "<legend> Lista de usuarios </legend>");
 	out.write("<table>");
 	for(usuarios i : meuUsuarioList){
 		out.write("<tr><td>"+i.getNome()+" - "+i.getEmail()+" - "+i.getCpf()+"</td></tr>");

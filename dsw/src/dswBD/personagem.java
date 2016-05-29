@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import model.personagens;
 
 public class personagem {
@@ -44,6 +46,15 @@ public class personagem {
 		System.out.println();
 	}
 	
+	public void inserirPersonagemTabela(String nome) throws SQLException{
+
+	      String query = " insert into personagens (nome)"
+	    	        + " values (?)";
+	    	      PreparedStatement preparedStmt = (PreparedStatement) myConn.prepareStatement(query);
+	    	      preparedStmt.setString (1,nome);
+	    	      preparedStmt.execute();
+
+	}
 	
 
 }

@@ -44,9 +44,7 @@ public class usuarioAcesso  {
 		Statement myStmtGetusuario = myConn.createStatement();
 		String[] arrayList;
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from usuarios");
-		System.out.println(myRSGetUsuario.getFetchSize());
-		System.out.println("wow");
-		
+
 		while (myRSGetUsuario.next()) {
 			id = myRSGetUsuario.getInt("id");
 			cpf = myRSGetUsuario.getString("cpf");
@@ -70,8 +68,8 @@ public class usuarioAcesso  {
 		
 	}
 
-	public void setUsuario(String nome,String telefone, String cpf, String email, String senha) throws SQLException {
-
+	public boolean setUsuario(String nome,String telefone, String cpf, String email, String senha) {
+	 try{
 		CallableStatement myStmtInserirUsuario = myConn.prepareCall("{call inserirUsuario(?,?,?,?,?)}");
 		//// ( Inome VARCHAR(80), Itelefone VARCHAR(20), Icpf VARCHAR(14) ,
 		//// Iemail VARCHAR(40), Isenha VARCHAR(255))
@@ -81,6 +79,12 @@ public class usuarioAcesso  {
 		myStmtInserirUsuario.setString(4, email);
 		myStmtInserirUsuario.setString(5, senha);
 		myStmtInserirUsuario.execute();
+		return true;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return false;
+	}
 
 	}
 
@@ -125,6 +129,42 @@ public class usuarioAcesso  {
 		return myRSGetUsuario.getInt("id");
 	}
 	
+	
+	
+	public usuarios getUsuario(String userEmail) {
+	try{	
+
+		usuarios meuUsuario = null;
+		Statement myStmtGetusuario = myConn.createStatement();
+		String[] arrayList;
+		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from usuarios");
+
+		while (myRSGetUsuario.next()) {
+			
+			id = myRSGetUsuario.getInt("id");
+			cpf = myRSGetUsuario.getString("cpf");
+			email = myRSGetUsuario.getString("email");
+			nome = myRSGetUsuario.getString("nome");
+			telefone = myRSGetUsuario.getString("telefone");
+			senha = myRSGetUsuario.getString("senha");
+			administrador = myRSGetUsuario.getBoolean("administrator");
+			ultimoLogin = myRSGetUsuario.getDate("ultimoLogin");
+			numeroLogins = myRSGetUsuario.getInt("numeroLogins");
+			if(userEmail.equals(email)){
+				meuUsuario = new usuarios(id, nome,email, telefone, cpf, senha, "foto", administrador, ultimoLogin, numeroLogins);
+				return meuUsuario;
+				
+			}
+		}
+
+		return null;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+	}
+		
+	}
 	
 	public int calculaSaldoDisponivelDinheiro(int idUsuario, int saldo) throws SQLException{
 		CallableStatement myStmt = myConn.prepareCall("{call CalculaSaldoDisponivelDinheiro(?,?)}");

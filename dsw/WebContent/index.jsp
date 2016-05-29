@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Inser as asdsd</title>
-<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/dsw/home.jsp">
+<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/dsw/home.do">
 </head>
 <body>
 </body>
