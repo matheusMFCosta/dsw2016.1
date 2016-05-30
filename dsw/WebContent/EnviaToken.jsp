@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="/dsw/enviaToken.do" method="post">
+<form action="/dsw/EnviaToken.do" method="post">
         <fieldset style="width: 300px">
             <legend> Recuperar Senha</legend>
             <table>

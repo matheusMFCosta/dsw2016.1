@@ -22,32 +22,32 @@ import br.unirio.simplemvc.actions.results.Error;
 import br.unirio.simplemvc.actions.results.ResultType;
 import br.unirio.simplemvc.actions.results.Success;
 import br.unirio.simplemvc.utils.Crypto;
-import dswBD.tokensAcesso;
-import dswBD.usuarioAcesso;
-import model.tokens;
-import model.usuarios;
+import dswBD.TokensAcesso;
+import dswBD.UsuarioAcesso;
+import model.Tokens;
+import model.Usuarios;
 
 public class ActionDsw extends Action {
 	
 	
 	@DisableUserVerification
-	@Error("/index.jsp")
-	@Success("/home.jsp")
+	@Error("/Index.jsp")
+	@Success("/Home.jsp")
 	public String home() throws ActionException
 	{
         	return SUCCESS;
 	}
 	
 	@DisableUserVerification
-	@Error("/index.jsp")
-	@Success("/welcome.jsp")
+	@Error("/Index.jsp")
+	@Success("/Welcome.jsp")
 	public String logIn() throws ActionException
 	{
 		
 		String userEmail = getParameter("userEmail");
 		String userPass = getParameter("userPass");
-		usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
-		usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+		UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+		Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
 
         if(meuUsuario!=null){
         	if(meuUsuario.getSenha().equals(userPass))
@@ -60,8 +60,8 @@ public class ActionDsw extends Action {
 	
 			
 	@DisableUserVerification
-	@Error("/createUser.jsp")
-	@Success("/home.do")		
+	@Error("/CreateUser.jsp")
+	@Success("/Home.do")		
 	public String createUser() throws ActionException
 	{
 		  
@@ -72,7 +72,7 @@ public class ActionDsw extends Action {
         String userCPF=getParameter("userCPF");
         String userPhone=getParameter("userPhone");
         
-        usuarioAcesso meuUsuario = new usuarioAcesso();
+        UsuarioAcesso meuUsuario = new UsuarioAcesso();
         String emailBody = "Voce criou uma conta no DSW Project \n "+
         		"Seu User name é: "+ userEmail +
         		"Para trocar de Senha entre: "+ "http://localhost:8080/dsw/RecuperaSenha.jsp";
@@ -89,15 +89,15 @@ public class ActionDsw extends Action {
 	
 	@DisableUserVerification
 	@Error("/EnviaToken.jsp")
-	@Success("/home.jsp")		
+	@Success("/Home.jsp")		
 	public String enviaToken() throws ActionException, SQLException
 	{
 		     
         String userName=getParameter("userEmail");
         String[] userEmail = new String[] {userName}; 
         
-        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
-        usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail[0]);  
+        UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+        Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail[0]);  
         if(meuUsuario ==null)
         	return ERROR;
         
@@ -112,7 +112,7 @@ public class ActionDsw extends Action {
         
 
         
-        tokensAcesso meuTokenAcesso = new tokensAcesso();
+        TokensAcesso meuTokenAcesso = new TokensAcesso();
         Calendar calendar = Calendar.getInstance();
         java.sql.Date ourJavaDateObject = new java.sql.Date(calendar.getTime().getTime());
         meuTokenAcesso.insereToken(userId, ""+token, ourJavaDateObject);
@@ -123,7 +123,7 @@ public class ActionDsw extends Action {
 	
 	@DisableUserVerification
 	@Error("/RecuperaSenha.jsp")
-	@Success("/home.jsp")		
+	@Success("/Home.jsp")		
 	public String confirmaToken() throws ActionException, SQLException
 	{
 	
@@ -133,15 +133,15 @@ public class ActionDsw extends Action {
         String senhaAntiga=getParameter("senhaAntiga");
         String novaSenha=getParameter("novaSenha");
         
-        tokensAcesso meuTokenAcesso = new tokensAcesso();
-        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
-        usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);  
+        TokensAcesso meuTokenAcesso = new TokensAcesso();
+        UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+        Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);  
         int userId = meuUsuario.getId();              
-        ArrayList<tokens> meusTokens = meuTokenAcesso.getUserTokens(userId);
+        ArrayList<Tokens> meusTokens = meuTokenAcesso.getUserTokens(userId);
         Calendar calendar = Calendar.getInstance();
         
         java.sql.Date ourJavaDateObject = new java.sql.Date(calendar.getTime().getTime());
-        for(tokens meuToken : meusTokens ){
+        for(Tokens meuToken : meusTokens ){
         	if(meuToken.getToken().equals(userToken) && ourJavaDateObject.toString().equals(meuToken.getValidade().toString())){
         			meuUsuarioAcesso.trocaSenha(userId,novaSenha);
 	        		return SUCCESS;
@@ -155,13 +155,13 @@ public class ActionDsw extends Action {
 	
 	@DisableUserVerification
 	@Error("/EditaUsuario.jsp")
-	@Success("/home.do")		
+	@Success("/Home.do")		
 	public String editaUsuario() throws ActionException, SQLException{
 		
 		String userEmail = getParameter("userEmail");
 		
-        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
-        usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+        UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+        Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
         
         if(meuUsuario ==null)
         	return ERROR;
@@ -183,8 +183,8 @@ public class ActionDsw extends Action {
 	public String getUsuario() throws ActionException, SQLException{
 		
 		String userEmail = getParameter("userEmail");
-        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
-        usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+        UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+        Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
 
         
         setAttribute("usuario", meuUsuario);

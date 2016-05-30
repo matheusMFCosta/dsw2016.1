@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/dsw/confirmaToken.do" method="post">
+<form action="/dsw/ConfirmaToken.do" method="post">
         <fieldset style="width: 300px">
             <legend> mudar senha </legend>
             <table>
