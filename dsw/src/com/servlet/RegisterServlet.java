@@ -20,6 +20,9 @@ public class RegisterServlet extends HttpServlet{
         response.setContentType("text/html");  
         PrintWriter out = response.getWriter();  
         
+        
+        String name=request.getParameter("name");
+        
         String userName=request.getParameter("userName");  
         String userPass=request.getParameter("userPass");
         String userEmail=request.getParameter("userEmail");  
@@ -32,16 +35,17 @@ public class RegisterServlet extends HttpServlet{
         
         HttpSession session = request.getSession(false);
         if(session!=null)
-        session.setAttribute("name", userName);
+        //session.setAttribute("name", userName);
 
         if(true){  
+        	System.out.println("--"+name);
             RequestDispatcher rd=request.getRequestDispatcher("welcome.jsp");  
             rd.forward(request,response);  
         }  
         else{  
-            out.print("<p style=\"color:red\">Sorry username or password error</p>");  
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");  
-            rd.include(request,response);  
+//            out.print("<p style=\"color:red\">Sorry username or password error</p>");  
+//            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");  
+//            rd.include(request,response);  
         }  
 
         out.close();  

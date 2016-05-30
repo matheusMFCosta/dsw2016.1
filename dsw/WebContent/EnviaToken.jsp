@@ -10,14 +10,14 @@
 
 <form action="/dsw/enviaToken.do" method="post">
         <fieldset style="width: 300px">
-            <legend> mudar senha </legend>
+            <legend> Recuperar Senha</legend>
             <table>
                 <tr>
                     <td>Seu email</td>
                     <td><input type="text" name="userEmail" required="required" /></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="Login" /></td>
+                    <td><input type="submit" value="Enviar" /></td>
                 </tr>
                 <tr>
                 	<td>    

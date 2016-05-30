@@ -61,7 +61,7 @@ public class ActionDsw extends Action {
 			
 	@DisableUserVerification
 	@Error("/createUser.jsp")
-	@Success("/createUser.jsp")		
+	@Success("/home.do")		
 	public String createUser() throws ActionException
 	{
 		  
@@ -73,6 +73,12 @@ public class ActionDsw extends Action {
         String userPhone=getParameter("userPhone");
         
         usuarioAcesso meuUsuario = new usuarioAcesso();
+        String emailBody = "Voce criou uma conta no DSW Project \n "+
+        		"Seu User name é: "+ userEmail +
+        		"Para trocar de Senha entre: "+ "http://localhost:8080/dsw/RecuperaSenha.jsp";
+        
+        String[] userEmailFrom = new String[] {userName}; 
+        SendEmail.sendFromGMail(userEmailFrom,emailBody);
         if(meuUsuario.setUsuario(userName, userPhone, userCPF, userEmail, userPass))
         	return SUCCESS;
 
@@ -82,18 +88,34 @@ public class ActionDsw extends Action {
 	
 	
 	@DisableUserVerification
-	@Error("/createUser.jsp")
-	@Success("/createUser.jsp")		
+	@Error("/EnviaToken.jsp")
+	@Success("/home.jsp")		
 	public String enviaToken() throws ActionException, SQLException
 	{
 		     
-        String userName=getParameter("userEmail"); 
-        SendEmail.send("dsw", "token", "mf.costa@live.com");
+        String userName=getParameter("userEmail");
+        String[] userEmail = new String[] {userName}; 
         
-//        tokensAcesso meuTokenAcesso = new tokensAcesso();
-//        Calendar calendar = Calendar.getInstance();
-//        java.sql.Date ourJavaDateObject = new java.sql.Date(calendar.getTime().getTime());
-//        meuTokenAcesso.insereToken(1, "12", ourJavaDateObject);
+        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
+        usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail[0]);  
+        if(meuUsuario ==null)
+        	return ERROR;
+        
+        System.out.println(meuUsuario);
+        int userId = meuUsuario.getId();
+        
+        
+        Random newRandom = new Random();
+        int token = newRandom.nextInt(Integer.MAX_VALUE);
+        String emailBody = "Token: "+token+"\n link: http://localhost:8080/dsw/RecuperaSenha.jsp";
+        SendEmail.sendFromGMail(userEmail,""+emailBody);
+        
+
+        
+        tokensAcesso meuTokenAcesso = new tokensAcesso();
+        Calendar calendar = Calendar.getInstance();
+        java.sql.Date ourJavaDateObject = new java.sql.Date(calendar.getTime().getTime());
+        meuTokenAcesso.insereToken(userId, ""+token, ourJavaDateObject);
        
 		return SUCCESS;
 		
@@ -101,9 +123,10 @@ public class ActionDsw extends Action {
 	
 	@DisableUserVerification
 	@Error("/RecuperaSenha.jsp")
-	@Success("/welcome.jsp")		
+	@Success("/home.jsp")		
 	public String confirmaToken() throws ActionException, SQLException
 	{
+	
 		
 		String userEmail = getParameter("userEmail");
         String userToken=getParameter("userToken"); 
@@ -120,16 +143,52 @@ public class ActionDsw extends Action {
         java.sql.Date ourJavaDateObject = new java.sql.Date(calendar.getTime().getTime());
         for(tokens meuToken : meusTokens ){
         	if(meuToken.getToken().equals(userToken) && ourJavaDateObject.toString().equals(meuToken.getValidade().toString())){
-        		if(meuUsuario.getSenha().equals(senhaAntiga)){
         			meuUsuarioAcesso.trocaSenha(userId,novaSenha);
 	        		return SUCCESS;
-        		}
+        	
         	}
         }
         	  
-       
+  
 		return ERROR;
+	}
+	
+	@DisableUserVerification
+	@Error("/EditaUsuario.jsp")
+	@Success("/home.do")		
+	public String editaUsuario() throws ActionException, SQLException{
 		
+		String userEmail = getParameter("userEmail");
+		
+        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
+        usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+        
+        if(meuUsuario ==null)
+        	return ERROR;
+        int userId = meuUsuario.getId();
+        String userName = getParameter("userName");
+        String userPhone =  getParameter("userPhone");
+        String userCpf =  getParameter("userCPF");
+        String userPhoto = meuUsuario.getFoto();
+
+        meuUsuarioAcesso.editUsuario(userId,userName, userPhone, userCpf, userPhoto);
+        
+       
+		return SUCCESS;
+	}
+	
+	@DisableUserVerification
+	@Error("/EditaUsuario.jsp")
+	@Success("/EditaUsuario.jsp")		
+	public String getUsuario() throws ActionException, SQLException{
+		
+		String userEmail = getParameter("userEmail");
+        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
+        usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+
+        
+        setAttribute("usuario", meuUsuario);
+		return SUCCESS;
 	}
 	
 

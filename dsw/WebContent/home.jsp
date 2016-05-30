@@ -13,7 +13,7 @@
             <legend> Login to App </legend>
             <table>
                 <tr>
-                    <td>User ID</td>
+                    <td>User Email</td>
                     <td><input type="text" name="userEmail" required="required" /></td>
                 </tr>
                 <tr>
@@ -37,6 +37,10 @@
 	</form>
 	<form action="/dsw/EnviaToken.jsp" method="post">
     	<input type="submit" value="Forgot password?" 
+			name="Submit" id="frm1_submit" />
+	</form>
+	<form action="/dsw/EditaUsuario.jsp" method="post">
+    	<input type="submit" value="edita" 
 			name="Submit" id="frm1_submit" />
 	</form>
 

@@ -35,7 +35,7 @@ version="2.5">
 
 <servlet-mapping>
 	<servlet-name>register</servlet-name>
-	<url-pattern>/register</url-pattern> 
+	<url-pattern>/editaUsuario</url-pattern> 
 </servlet-mapping>
 
 <servlet-mapping>

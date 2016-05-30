@@ -8,15 +8,34 @@
 </head>
 <body>
 <form action="/dsw/createUser.do" method="post">  
-  
-Name:<input type="text" name="userName"/><br/><br/>  
-Password:<input type="password" name="userPass"/><br/><br/>  
-Email Id:<input type="text" name="userEmail"/><br/><br/>  
-CPF:<input type="text" name="userCPF"/><br/><br/>  
-telefone:<input type="text" name="userPhone"/><br/><br/>  
-  
-<br/><br/>  
+ <fieldset style="width: 300px">
+     <legend> Create Account</legend>
+     <table>
+         <tr>
+			<td>Name:</td>
+			<td><input type="text" name="userName"/> <td>
+		 </tr>
+		 <tr>
+			<td>Password:</td>
+			<td><input type="password" name="userPass"/></td>
+		</tr>
+		 <tr>  
+			<td>Email Id:</td>
+			<td><input type="text" name="userEmail"/> </td>
+		</tr>
+		 <tr>
+			<td>CPF:</td>
+			<td><input type="text" name="userCPF"/> </td>
+		</tr>
+		 <tr>
+			<td>telefone:</td>
+			<td><input type="text" name="userPhone"/></td>
+	</tr>
+	</table>  
+
+
 <input type="submit" value="register"/>
+</fieldset>
 </form>    
 
 </body>

@@ -20,12 +20,8 @@
                     <td><input type="text" name="userToken" required="required" /></td>
                 </tr>
                 <tr>
-                    <td>Senha antiga</td>
-                    <td><input type="text" name="senhaAntiga" required="required" /></td>
-                </tr>
-                <tr>
                     <td>Nova senha</td>
-                    <td><input type="text" name="novaSenha" required="required" /></td>
+                    <td><input type="password" name="novaSenha" required="required" /></td>
                 </tr>
                 
                 <tr>
