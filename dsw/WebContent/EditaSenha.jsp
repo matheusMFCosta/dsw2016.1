@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Welcome <%=session.getAttribute("usuario")%></title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<title>Welcome <%=session.getAttribute("usuario")%></title>
 </head>
 <body>
 <c:set var="usuario" value="${requestScope.usuario}" scope="page" />
@@ -15,34 +15,35 @@
   <div class="col-sm-4">.</div>
 	</div>
 	<div class="col-sm-4"></div>
-<form action="/dsw/EditaUsuario.do" method="post">  
+<form action="/dsw/EditaSenha.do" method="post">  
  <fieldset style="width: 300px">
-     <legend> Editar Usuario</legend>
+     <legend> Editar Senha</legend>
      <table>
-     	 <tr>
+
+		
+		 <tr>
 			<td><input type="hidden" name="userEmail"  value="${usuario.email}"/> <td>
 		 </tr>
-         <tr>
-			<td>Name:</td>
-			<td><input type="text" name="userName"  value="${usuario.nome}"/> <td>
-		 </tr>
-		 <tr>
-			<td>CPF:</td>
-			<td><input type="text" name="userCPF"  value="${usuario.cpf}"/> </td>
-		</tr>
-		 <tr>
-			<td>telefone:</td>
-			<td><input type="tel" name="userPhone" value="${usuario.telefone}"/></td>
-	</tr>
+
+		<tr>
+           <td>Senha Antiga</td>
+           <td><input type="password" name="OldUserPass" required="required" /></td>
+        </tr>
+ 		<tr>
+           <td>Nova Senha</td>
+           <td><input type="password" name="userPass" required="required" /></td>
+        </tr>
+            
+        <tr>
+            <td>Confirma Senha</td>
+            <td><input type="password" name="userPassConfirmation" required="required" /></td>
+         </tr>
 	</table>  
 
 
 <input type="submit" value="editar"/>
 </fieldset>
 </form>    
-
-
-</script>
 
 
 </body>

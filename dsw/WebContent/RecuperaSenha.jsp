@@ -4,16 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/dsw/ConfirmaToken.do" method="post">
+<div class="row">
+  <div class="col-sm-4">.</div>
+	</div>
+	<div class="col-sm-4"></div>
+<form action="/dsw/confirmaToken.do" method="post">
         <fieldset style="width: 300px">
             <legend> mudar senha </legend>
             <table>
                 <tr>
                     <td>Seu email</td>
-                    <td><input type="text" name="userEmail" required="required" /></td>
+                    <td><input type="text" name="userEmail" value="<%= request.getParameter("userEmail") %>"required="required" /></td>
                 </tr>
                 <tr>
                     <td>Token</td>
@@ -23,7 +29,10 @@
                     <td>Nova senha</td>
                     <td><input type="password" name="novaSenha" required="required" /></td>
                 </tr>
-                
+                <tr>
+                    <td>Confirma senha</td>
+                    <td><input type="password" name="novaSenhaConfirmation" required="required" /></td>
+                </tr>
                 <tr>
                     <td><input type="submit" value="Login" /></td>
                 </tr>

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dswBD.usuarioAcesso;
+import model.usuarios;
+
 
 public class LoginServlet extends HttpServlet{
 
@@ -21,14 +24,15 @@ public class LoginServlet extends HttpServlet{
 
         response.setContentType("text/html");  
         PrintWriter out = response.getWriter();  
-        
-        String n=request.getParameter("username");  
-        String p=request.getParameter("userpass"); 
-        
+        String userEmail=request.getParameter("userEmail");  
+        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
+		usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+
+		
         HttpSession session = request.getSession(false);
         if(session!=null)
-        session.setAttribute("name", n);
-
+        session.setAttribute("usuario", meuUsuario);
+    
         if(true){  
             RequestDispatcher rd=request.getRequestDispatcher("welcome.jsp");  
             rd.forward(request,response);  

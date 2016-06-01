@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 
 
-import model.Personagens;
-import model.Tokens;
-import model.Transferencias;
-import model.Usuarios;
+import model.personagens;
+import model.tokens;
+import model.transferencias;
+import model.usuarios;
 
 import java.sql.*;
 
