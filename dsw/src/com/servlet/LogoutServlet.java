@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dswBD.usuarioAcesso;
-import model.usuarios;
+import dswBD.UsuarioAcesso;
+import model.Usuarios;
 
 public class LogoutServlet extends HttpServlet{
 	

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dswBD.usuarioAcesso;
-import model.usuarios;
+import dswBD.UsuarioAcesso;
+import model.Usuarios;
 
 
 public class LoginServlet extends HttpServlet{
@@ -25,8 +25,8 @@ public class LoginServlet extends HttpServlet{
         response.setContentType("text/html");  
         PrintWriter out = response.getWriter();  
         String userEmail=request.getParameter("userEmail");  
-        usuarioAcesso meuUsuarioAcesso = new usuarioAcesso();
-		usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+        UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+		Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
 
 		
         HttpSession session = request.getSession(false);
