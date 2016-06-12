@@ -29,7 +29,8 @@ public class ErrorServlet extends HttpServlet{
         String errorMessage=(String) request.getAttribute("errorMessage");
 
   		
-		
+		System.out.println("---"+nexPage);
+		System.out.println("---"+errorMessage);
 		out.print("<p style=\"color:red\">"+errorMessage+"</p>"); 
 	    RequestDispatcher rd=request.getRequestDispatcher(nexPage);  
 	    rd.include(request,response);  

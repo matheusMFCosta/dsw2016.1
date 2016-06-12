@@ -13,7 +13,7 @@
   <div class="col-sm-4">.</div>
 	</div>
 	<div class="col-sm-4"></div>
-<form action="/dsw/confirmaToken.do" method="post">
+<form action="/dsw/jsp/user/confirmaToken.do" method="post">
         <fieldset style="width: 300px">
             <legend> mudar senha </legend>
             <table>

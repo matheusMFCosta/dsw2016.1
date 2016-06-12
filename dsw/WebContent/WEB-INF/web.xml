@@ -29,6 +29,8 @@ version="2.5">
 		<init-param>
            <param-name>actionsPackage</param-name>
            <param-value>com.actions.dsw</param-value>
+           
+           
        </init-param>
 		<init-param>
            <param-name>applicationName</param-name>

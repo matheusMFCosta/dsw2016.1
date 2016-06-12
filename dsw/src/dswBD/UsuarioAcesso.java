@@ -101,16 +101,26 @@ public class UsuarioAcesso  {
 		myStmtEditUsuario.execute();
 	}
 
-	public void indicaFalha(int id) throws SQLException {
-		CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginFalha(?)}");
-		myStmt.setInt(1, id);
-		myStmt.execute();
+	public void indicaFalha(int id) {
+		try{
+			CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginFalha(?)}");
+			myStmt.setInt(1, id);
+			myStmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public void indicaSucesso(int id) throws SQLException {
-		CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginSucesso(?)}");
-		myStmt.setInt(1, 1);
-		myStmt.execute();
+	public void indicaSucesso(int id)  {
+		try{
+			CallableStatement myStmt = myConn.prepareCall("{call IndicarLoginSucesso(?)}");
+			myStmt.setInt(1, id);
+			myStmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
@@ -166,22 +176,35 @@ public class UsuarioAcesso  {
 		
 	}
 	
-	public int calculaSaldoDisponivelDinheiro(int idUsuario, int saldo) throws SQLException{
-		CallableStatement myStmt = myConn.prepareCall("{call CalculaSaldoDisponivelDinheiro(?,?)}");
-		myStmt.setInt(1, idUsuario);
-		myStmt.registerOutParameter(2,saldo);
-		myStmt.execute();
-		return myStmt.getInt(2);
+	public int calculaSaldoDisponivelDinheiro(int idUsuario, int saldo){
+		try{	
+			CallableStatement myStmt = myConn.prepareCall("{call CalculaSaldoDisponivelDinheiro(?,?)}");
+			myStmt.setInt(1, idUsuario);
+			myStmt.registerOutParameter(2,saldo);
+			myStmt.execute();
+			return myStmt.getInt(2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 
 	}
 
-	public int calculaSaldoDisponivelPersonagem( int idUsuario,int idPersonagem, int saldo) throws SQLException{
-		CallableStatement myStmt = myConn.prepareCall("{call CalculaSaldoDisponivelPersonagem(?,?,?)}");
-		myStmt.setInt(1, idUsuario);
-		myStmt.setInt(2, idPersonagem);
-		myStmt.registerOutParameter(3,saldo);	
-		myStmt.execute();
-		return myStmt.getInt(3);
+	public int calculaSaldoDisponivelPersonagem( int idUsuario,int idPersonagem, int saldo) {
+		try{ 	
+			CallableStatement myStmt = myConn.prepareCall("{call CalculaSaldoDisponivelPersonagem(?,?,?)}");
+			myStmt.setInt(1, idUsuario);
+			myStmt.setInt(2, idPersonagem);
+			myStmt.registerOutParameter(3,saldo);	
+			myStmt.execute();
+			return myStmt.getInt(3);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return 0;
 	}
+	
 	
 }

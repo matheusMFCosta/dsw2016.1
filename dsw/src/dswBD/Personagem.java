@@ -6,11 +6,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
 import model.Personagens;
+import model.Usuarios;
 
 public class Personagem {
 	
@@ -20,9 +22,14 @@ public class Personagem {
 
 	
 	
-	public Personagem() throws SQLException {
+	public Personagem()  {
 		super();
-		this.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DSW", "root" , "123456");
+		try{
+			this.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DSW", "root" , "123456");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
@@ -33,26 +40,36 @@ public class Personagem {
 		return myRSGetUsuario.getInt("id");
 	}
 	
-	public void getPersonagensTable() throws SQLException {
-
-		Statement myStmtGetusuario = myConn.createStatement();
-		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from personagens");
-		while (myRSGetUsuario.next()) {
-			id = myRSGetUsuario.getInt("id");
-			nome = myRSGetUsuario.getString("nome");
-			Personagens meuPersonagem = new Personagens(id,nome);
-			System.out.println(meuPersonagem);
+	public ArrayList<Personagens> getPersonagensTable()  {
+		
+		ArrayList<Personagens> meuPersonagemList = new ArrayList<Personagens>();
+		try{
+			Statement myStmtGetusuario = myConn.createStatement();
+			ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from personagens");
+			while (myRSGetUsuario.next()) {
+				id = myRSGetUsuario.getInt("id");
+				nome = myRSGetUsuario.getString("nome");
+				Personagens meuPersonagem = new Personagens(id,nome);
+				meuPersonagemList.add(meuPersonagem);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println();
+		return meuPersonagemList;
 	}
 	
-	public void inserirPersonagemTabela(String nome) throws SQLException{
-
-	      String query = " insert into personagens (nome)"
-	    	        + " values (?)";
-	    	      PreparedStatement preparedStmt = (PreparedStatement) myConn.prepareStatement(query);
-	    	      preparedStmt.setString (1,nome);
-	    	      preparedStmt.execute();
+	public void inserirPersonagemTabela(String nome) {
+		try{
+		      String query = " insert into personagens (nome)"
+		    	        + " values (?)";
+		    	      PreparedStatement preparedStmt = (PreparedStatement) myConn.prepareStatement(query);
+		    	      preparedStmt.setString (1,nome);
+		    	      preparedStmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	

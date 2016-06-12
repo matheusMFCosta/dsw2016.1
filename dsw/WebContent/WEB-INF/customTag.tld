@@ -7,4 +7,22 @@
     <tag-class>com.tags.UserTable</tag-class>
     <body-content>empty</body-content>
   </tag>
+  
+    <tag>
+    <name>Personagens</name>
+    <tag-class>com.tags.Personagens</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  
+     <tag>
+    <name>Ordens</name>
+    <tag-class>com.tags.Ordens</tag-class>
+    <body-content>empty</body-content>
+     <attribute>
+		 <name>userEmail</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+  </tag>
+  
 </taglib>

@@ -19,14 +19,14 @@ import br.unirio.simplemvc.utils.Crypto;
 public class ActionHome extends Action {
 	
 	
-	@DisableUserVerification
-	@Error("/jsp/login/login.jsp")
-	@Success("dsw/createUser.jsp")
-	public String home() throws ActionException
-	{
-		System.out.println("wooooooooow1");
-		return SUCCESS;
-		
-	}
+//	@DisableUserVerification
+//	@Error("/jsp/login/login.jsp")
+//	@Success("dsw/createUser.jsp")
+//	public String home() throws ActionException
+//	{
+//		System.out.println("wooooooooow1");
+//		return SUCCESS;
+//		
+//	}
 
 }

@@ -46,9 +46,15 @@ public class Transferencia {
 	private int idOrdemOriginal;
 	
 	
-	public Transferencia() throws SQLException {
-		super();
-		this.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DSW", "root" , "123456");
+	public Transferencia(){
+		
+			super();
+		try{
+			this.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DSW", "root" , "123456");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void getTransferencia() throws SQLException{
@@ -89,15 +95,20 @@ public class Transferencia {
 		System.out.println();
 	}
 	
-	public void registaTransferencia(int idUsuario,String numeroBanco,String numeroAgencia,String numeroConta, float valor ) throws SQLException{
-		//(IidUsuario INT, Ibanco VARCHAR(3), Iagencia VARCHAR(6), Iconta VARCHAR(10), Ivalor FLOAT)
-		CallableStatement myStmt = myConn.prepareCall("{call RegistrarTransferencia(?,?,?,?,?)}");
-		myStmt.setInt(1,idUsuario);
-		myStmt.setString(2,numeroBanco);
-		myStmt.setString(3,numeroAgencia);
-		myStmt.setString(4,numeroConta);
-		myStmt.setFloat(5,valor);
-		myStmt.execute();
+	public void registaTransferencia(int idUsuario,String numeroBanco,String numeroAgencia,String numeroConta, float valor ) {
+		try{
+			//(IidUsuario INT, Ibanco VARCHAR(3), Iagencia VARCHAR(6), Iconta VARCHAR(10), Ivalor FLOAT)
+			CallableStatement myStmt = myConn.prepareCall("{call RegistrarTransferencia(?,?,?,?,?)}");
+			myStmt.setInt(1,idUsuario);
+			myStmt.setString(2,numeroBanco);
+			myStmt.setString(3,numeroAgencia);
+			myStmt.setString(4,numeroConta);
+			myStmt.setFloat(5,valor);
+			myStmt.execute();
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 
