@@ -13,14 +13,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<ex:Personagens/>
+	
 <div class="row">
   <div class="col-sm-4">.</div>
 	</div>
 	<div class="col-sm-4"></div>
 <form action="/dsw/registraPersonagem.do" method="post">  
  <fieldset style="width: 300px">
-     <legend> Create Account</legend>
+     <legend> Registro de Personagem</legend>
      <table>
      
      	 <tr>
@@ -36,9 +36,14 @@
 			<td>Quantidade:</td>
 			<td><input type="number"   required="required" name="quantity"/> </td>
 		</tr>
-		<tr>
-			<td>preco Unitarioe:</td>
-			<td><input type="number"   required="required" name="price"/> </td>
+			<tr>
+			<td>Acao:</td>
+			<td>
+				<select name=tipo>
+				  <option value="Adicionar">Adicionar</option>
+				  <option value="Remover">Remover</option>
+				</select> 
+			</td>
 		</tr>
 
 	</table>  
@@ -47,7 +52,7 @@
 <input type="submit" value="register"/>
 </fieldset>
 </form>    
-
+<ex:Personagens/>
 
 
 </body>

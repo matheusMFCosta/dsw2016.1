@@ -240,8 +240,8 @@ public class Acesso {
 			idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
 
 					
-			Ofertas minhasOfertas = new Ofertas(id, tipo,idPersonagem,idUsuario, minhaData, quantidade, quantidadeOriginal, precoUnitario, status ,  idOrdemOriginal);
-			System.out.println(minhasOfertas);
+			//Ofertas minhasOfertas = new Ofertas(id, tipo,idPersonagem,idUsuario, minhaData, quantidade, quantidadeOriginal, precoUnitario, status ,  idOrdemOriginal);
+			//System.out.println(minhasOfertas);
 		}
 		System.out.println();
 	}

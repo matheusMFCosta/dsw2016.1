@@ -313,10 +313,46 @@ public class ActionDsw extends Action {
     	return ERROR;
 		
 	}
+	
+	
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/welcome.jsp")		
 	public String registraPersonagem() throws ActionException{
+		
+		
+		String userEmail = getParameter("userEmail");
+		String personagemId = getParameter("personagemId");
+		String quantity = getParameter("quantity");
+		String tipo = getParameter("tipo");
+		Transferencia transferenciaAcesso = new Transferencia();
+		UsuarioAcesso meUsuarioAcesso = new UsuarioAcesso();
+        Usuarios meuUsuario = meUsuarioAcesso.getUsuario(userEmail);
+
+		if(tipo.equals("Adicionar")){
+			transferenciaAcesso.adicionaPersonagem(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity));	
+			setAttribute("nextPage", "jsp/registros/RegistrarPersonagem.jsp");
+	    	setAttribute("errorMessage", "Personagem Adicionado");
+	    	return ERROR;
+    	} else {
+			if( 0 == transferenciaAcesso.removerPersonagem(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity))){
+				setAttribute("nextPage", "jsp/registros/RegistrarPersonagem.jsp");
+		    	setAttribute("errorMessage", "Personagem Removido");
+		    	return ERROR;
+			} else {
+				setAttribute("nextPage", "jsp/registros/RegistrarPersonagem.jsp");
+		    	setAttribute("errorMessage", "Quantidade de personagens indisponivel");
+		    	return ERROR;
+			}
+    	}
+	}
+	
+	
+	
+	@DisableUserVerification
+	@Error("/error")
+	@Success("/welcome.jsp")		
+	public String registraOfertaDeVenda() throws ActionException{
 		
 		
 		String userEmail = getParameter("userEmail");
@@ -330,13 +366,41 @@ public class ActionDsw extends Action {
 		
 		if(1 == newOferta.registraOrdemVenda(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity), Float.parseFloat(price),0))
 		{
-			setAttribute("nextPage", "jsp/registros/RegistrarPersonagem.jsp");
+			setAttribute("nextPage", "jsp/compraEVenda/OfertaDeVenda.jsp");
 	    	setAttribute("errorMessage", "Erro no registro");
 	    	return ERROR;
 		}
 
 		return SUCCESS;
 	}
+	
+	
+	
+	@DisableUserVerification
+	@Error("/error")
+	@Success("/welcome.jsp")		
+	public String registraOfertaDeCompra() throws ActionException{
+		
+		
+		String userEmail = getParameter("userEmail");
+		String personagemId = getParameter("personagemId");
+		String price = getParameter("price");
+		String quantity = getParameter("quantity");
+		Oferta newOferta = new Oferta();
+		UsuarioAcesso meUsuarioAcesso = new UsuarioAcesso();
+        Usuarios meuUsuario = meUsuarioAcesso.getUsuario(userEmail);
+		
+		
+		if(1 == newOferta.registraOrdemCompra(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity), Float.parseFloat(price),0))
+		{
+			setAttribute("nextPage", "jsp/compraEVenda/OfertaDeCompra.jsp");
+	    	setAttribute("errorMessage", "Erro no registro");
+	    	return ERROR;
+		}
+
+		return SUCCESS;
+	}
+	
 	
 	@DisableUserVerification
 	@Error("/error")
@@ -367,6 +431,24 @@ public class ActionDsw extends Action {
 		
 		newOfertaAccess.CancelaOrdemVenda(Integer.parseInt(orderId));
 		return SUCCESS;
+	}
+	
+	
+	@DisableUserVerification
+	@Error("/error")
+	@Success("/jsp/registros/Ofertas.jsp")		
+	public String filterOfers() throws ActionException{
+		
+		
+		String data = getParameter("dataFilter");
+		String preco = getParameter("precoFilter");
+		String personagem = getParameter("PersonagemFilter");
+		setAttribute("date", data);
+		setAttribute("price", preco);
+    	setAttribute("personagemId", personagem);
+    	
+		return SUCCESS;
+		
 	}
 	
 	

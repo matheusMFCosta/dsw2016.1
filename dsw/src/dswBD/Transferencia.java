@@ -95,6 +95,39 @@ public class Transferencia {
 		System.out.println();
 	}
 	
+	
+	public void adicionaPersonagem(int id ,int idPersonagem,int quantidade) {
+		try{	
+			//(IidUsuario int, IidPersonagem int, Iquantidade int)
+			CallableStatement myStmt = myConn.prepareCall("{call AdicionarPersonagem(?,?,?)}");
+			myStmt.setInt(1,id);
+			myStmt.setInt(2,idPersonagem);
+			myStmt.setInt(3,quantidade);
+			myStmt.execute();	
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	public int removerPersonagem(int id ,int idPersonagem,int quantidade) {
+		int error= 0;
+		try{	
+			//(IidUsuario int, IidPersonagem int, Iquantidade int)
+			CallableStatement myStmt = myConn.prepareCall("{call RemoverPersonagem(?,?,?,?)}");
+			myStmt.setInt(1,id);
+			myStmt.setInt(2,idPersonagem);
+			myStmt.setInt(3,quantidade);
+			
+			myStmt.execute();	
+			error = myStmt.getInt(4);
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return error;
+	}
+	
 	public void registaTransferencia(int idUsuario,String numeroBanco,String numeroAgencia,String numeroConta, float valor ) {
 		try{
 			//(IidUsuario INT, Ibanco VARCHAR(3), Iagencia VARCHAR(6), Iconta VARCHAR(10), Ivalor FLOAT)

@@ -4,6 +4,8 @@ package model;
 public class Personagens {
 	private int id;
 	private String nome;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -20,6 +22,10 @@ public class Personagens {
 		super();
 		this.id = id;
 		this.nome = nome;
+	}
+	
+	public Personagens() {
+		super();
 	}
 	@Override
 	public String toString() {

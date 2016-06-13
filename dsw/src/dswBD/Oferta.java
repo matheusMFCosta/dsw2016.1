@@ -68,9 +68,9 @@ public ArrayList<Ofertas>  getOfertasTable() {
 				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
 				int idUsuario = myRSGetUsuario.getInt("idUsuario");
 				java.util.Date minhaData = myRSGetUsuario.getDate("data");
-				float quantidade = myRSGetUsuario.getFloat("quantidade");
-				quantidadeOriginal = myRSGetUsuario.getFloat("quantidadeOriginal");
-				precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
+				int quantidade = myRSGetUsuario.getInt("quantidade");
+				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
+				int precoUnitario =   myRSGetUsuario.getInt("precoUnitario");
 				status =  myRSGetUsuario.getInt("status");
 				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
 				
@@ -97,9 +97,9 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 			idPersonagem = myRSGetUsuario.getInt("idPersonagem");
 			int idUsuario = myRSGetUsuario.getInt("idUsuario");
 			java.util.Date minhaData = myRSGetUsuario.getDate("data");
-			float quantidade = myRSGetUsuario.getFloat("quantidade");
-			quantidadeOriginal = myRSGetUsuario.getFloat("quantidadeOriginal");
-			precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
+			int quantidade = myRSGetUsuario.getInt("quantidade");
+			int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
+			float precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
 			status =  myRSGetUsuario.getInt("status");
 			idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
 			
@@ -126,9 +126,9 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
 				int idUsuario = myRSGetUsuario.getInt("idUsuario");
 				java.util.Date minhaData = myRSGetUsuario.getDate("data");
-				float quantidade = myRSGetUsuario.getFloat("quantidade");
-				quantidadeOriginal = myRSGetUsuario.getFloat("quantidadeOriginal");
-				precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
+				int quantidade = myRSGetUsuario.getInt("quantidade");
+				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
+				float  precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
 				status =  myRSGetUsuario.getInt("status");
 				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
 				
@@ -156,9 +156,9 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
 				int idUsuario = myRSGetUsuario.getInt("idUsuario");
 				java.util.Date minhaData = myRSGetUsuario.getDate("data");
-				float quantidade = myRSGetUsuario.getFloat("quantidade");
-				quantidadeOriginal = myRSGetUsuario.getFloat("quantidadeOriginal");
-				precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
+				int quantidade = myRSGetUsuario.getInt("quantidade");
+				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
+				float precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
 				status =  myRSGetUsuario.getInt("status");
 				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
 				
@@ -176,19 +176,23 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 	
 	
 	
-	public void registraOrdemCompra(int idusuario ,int idPersonagem,int quantidade,float precoUnitario,int error){
+	public int registraOrdemCompra(int idusuario ,int idPersonagem,int quantidade,float precoUnitario,int error){
+		int erro = 0;
 		try{ 
 			CallableStatement myStmt = myConn.prepareCall("{call RegistraOrdemCompra(?,?,?,?,?)}");
 			myStmt.setInt(1,idusuario );
 			myStmt.setInt(2,idPersonagem);
 			myStmt.setInt(3,quantidade);
 			myStmt.setFloat(4,precoUnitario);
-			myStmt.setInt(5,error);
+			
 			myStmt.execute();	
+			
+			error = myStmt.getInt(5);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return erro;
 	}
 	
 	public int registraOrdemVenda(int idusuario ,int idPersonagem,int quantidade,float precoUnitario,int error) {

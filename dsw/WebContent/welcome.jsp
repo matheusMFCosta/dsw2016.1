@@ -52,13 +52,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                   	<a href="/dsw/jsp/compraEVenda/OfertaDeVenda.jsp" method="post">                
+                    	Oferta de Venda
+                    </a>
                 </li>
+
                 <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                                       	<a href="/dsw/jsp/compraEVenda/OfertaDeCompra.jsp" method="post">                
+                    	Oferta de Compra
+                    </a>
                 </li>
             </ul>
         </div>

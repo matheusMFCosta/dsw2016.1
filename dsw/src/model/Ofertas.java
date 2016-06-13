@@ -9,14 +9,14 @@ public class Ofertas {
 	private int idPersonagem;
 	private int idUsuario;
 	private java.util.Date data;
-	private float quantidade;
-	private float quantidadeOriginal;
+	private int quantidade;
+	private int quantidadeOriginal;
 	private float precoUnitario;
 	private int status;
 	private int idOrdemOriginal;
 	
 	
-	public Ofertas(int id, int tipo, int idPersonagem, int idUsuario, java.util.Date data, float quantidade,float quantidadeOriginal, float precoUnitario, int status, int idOrdemOriginal) {
+	public Ofertas(int id, int tipo, int idPersonagem, int idUsuario, java.util.Date data, int quantidade,int quantidadeOriginal, float precoUnitario, int status, int idOrdemOriginal) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -61,22 +61,22 @@ public class Ofertas {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public float getQuantidade() {
+	public int getQuantidade() {
 		return quantidade;
 	}
-	public void setQuantidade(float quantidade) {
+	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	public float getQuantidadeOriginal() {
+	public int getQuantidadeOriginal() {
 		return quantidadeOriginal;
 	}
-	public void setQuantidadeOriginal(float quantidadeOriginal) {
+	public void setQuantidadeOriginal(int quantidadeOriginal) {
 		this.quantidadeOriginal = quantidadeOriginal;
 	}
 	public float getPrecoUnitario() {
 		return precoUnitario;
 	}
-	public void setPrecoUnitario(float precoUnitario) {
+	public void setPrecoUnitario(int precoUnitario) {
 		this.precoUnitario = precoUnitario;
 	}
 	public int getStatus() {

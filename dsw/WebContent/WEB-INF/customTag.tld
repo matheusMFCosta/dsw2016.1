@@ -23,6 +23,38 @@
 		 <required>false</required>
 		 <rtexprvalue>true</rtexprvalue>
 	 </attribute>
+	      <attribute>
+		 <name>price</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+	      <attribute>
+		 <name>personagemId</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+	      <attribute>
+		 <name>date</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+  </tag>
+  
+    <tag>
+    <name>SaldoDisponivel</name>
+    <tag-class>com.tags.SaldoDisponivel</tag-class>
+    <body-content>empty</body-content>
+     <attribute>
+		 <name>userEmail</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+  </tag>
+  
+   <tag>
+    <name>PersonagensDisponiveis</name>
+    <tag-class>com.tags.PersonagensDisponiveis</tag-class>
+    <body-content>empty</body-content>
   </tag>
   
 </taglib>

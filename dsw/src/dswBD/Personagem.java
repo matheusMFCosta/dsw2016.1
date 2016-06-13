@@ -59,6 +59,27 @@ public class Personagem {
 		return meuPersonagemList;
 	}
 	
+	public Personagens getPersonagem(int id){
+		
+		Personagens meuPersonagem = null;
+		try{
+			Statement myStmtGetusuario = myConn.createStatement();
+			ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from personagens where id="+id);
+			while (myRSGetUsuario.next()) {
+				id = myRSGetUsuario.getInt("id");
+				nome = myRSGetUsuario.getString("nome");
+				meuPersonagem = new Personagens(id,nome);
+				return meuPersonagem;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return meuPersonagem;
+		
+	}
+	
+	
 	public void inserirPersonagemTabela(String nome) {
 		try{
 		      String query = " insert into personagens (nome)"
