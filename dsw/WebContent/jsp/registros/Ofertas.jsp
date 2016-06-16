@@ -19,6 +19,11 @@
 </head>
 <body>
 
+<div class="row">
+  <div class="col-sm-4"></div>
+ 
+	<div class="col-sm-4">
+	
 <ex:SaldoDisponivel userEmail="${usuario.email}"/>
 
 <form action="/dsw/removeOfer.do" method="post">  
@@ -48,10 +53,10 @@
 </fieldset>
 </form>    
 
-
+</br> </br>
 <form action="/dsw/filterOfers.do" method="post">  
  <fieldset style="width: 300px">
-     <legend> Cancel a order</legend>
+     <legend> Order Filter</legend>
      <table>
      
      	 <tr>
@@ -66,7 +71,7 @@
 			<td><input type="text"   name="precoFilter" value="${price}"/> </td>
 		</tr>
 		</tr>
-				 <tr>  
+		<tr>  
 			<td>Personagem:</td>
 			<td><input type="text"   name="PersonagemFilter" value="${personagemId}"/> </td>
 		</tr>
@@ -79,10 +84,10 @@
 </fieldset>
 </form>    
 
-
+</br> </br>
 <ex:Ordens price="${price}" personagemId="${personagemId}" date="${date}" userEmail="${usuario.email}"/>
 
-
+</div>
 </body>
 </html>
 

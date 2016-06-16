@@ -13,14 +13,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<ex:PersonagensDisponiveis />
-	<ex:SaldoDisponivel userEmail="${usuario.email}"/>
+
 	
 	
 <div class="row">
   <div class="col-sm-4">.</div>
-	</div>
-	<div class="col-sm-4"></div>
+
+	<div class="col-sm-4">
+		<ex:PersonagensDisponiveis />
+	<ex:SaldoDisponivel userEmail="${usuario.email}"/>
 <form action="/dsw/registraOfertaDeCompra.do" method="post">  
  <fieldset style="width: 300px">
      <legend> Comprar Personagem</legend>
@@ -52,6 +53,6 @@
 </form>    
 
 <ex:Personagens/>
-
+</div>
 </body>
 </html>

@@ -15,9 +15,10 @@
 <body>
 	
 <div class="row">
-  <div class="col-sm-4">.</div>
-	</div>
-	<div class="col-sm-4"></div>
+  <div class="col-sm-4"></div>
+
+	<div class="col-sm-4">
+	</br></br>
 <form action="/dsw/registraPersonagem.do" method="post">  
  <fieldset style="width: 300px">
      <legend> Registro de Personagem</legend>
@@ -51,9 +52,10 @@
 
 <input type="submit" value="register"/>
 </fieldset>
-</form>    
+</form>  
+</br> </br>  
 <ex:Personagens/>
-
+</div>
 
 </body>
 </html>

@@ -13,6 +13,7 @@
   <div class="col-sm-4"></div>
 	</div>
 	<div class="col-sm-4"></div>
+	</br></br>
 <form action="/dsw/enviaToken.do" method="post">
         <fieldset style="width: 300px">
             <legend> Recuperar Senha</legend>

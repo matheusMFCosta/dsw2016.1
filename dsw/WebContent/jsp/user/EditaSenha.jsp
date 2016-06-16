@@ -9,17 +9,20 @@
 
 </head>
 <body>
-<c:set var="usuario" value="${requestScope.usuario}" scope="page" />
+
 
 <div class="row">
-  <div class="col-sm-4">.</div>
-	</div>
-	<div class="col-sm-4"></div>
+  <div class="col-sm-4"></div>
+ 
+
+	<div class="col-sm-4">
+	
+</br></br>
 <form action="/dsw/EditaSenha.do" method="post">  
  <fieldset style="width: 300px">
      <legend> Editar Senha</legend>
      <table>
-
+	
 		 <tr>
 		 
 			<td><input type="hidden" name="userEmail"  value="${usuario.email}"/> <td>
@@ -44,7 +47,7 @@
 <input type="submit" value="editar"/>
 </fieldset>
 </form>    
-
+</div>
 
 </body>
 </html>

@@ -13,8 +13,11 @@
 
 <div class="row">
   <div class="col-sm-4">.</div>
-	</div>
-	<div class="col-sm-4"></div>
+
+	<div class="col-sm-4">
+
+    
+    
 <form action="/dsw/EditaUsuario.do" method="post">  
  <fieldset style="width: 300px">
      <legend> Editar Usuario</legend>
@@ -39,10 +42,27 @@
 
 <input type="submit" value="editar"/>
 </fieldset>
-</form>    
+</form>  
 
 
-</script>
+
+	  
+	</br> </br>
+	<div class="panel panel-default">
+	  <div class="panel-heading">User Data</div>
+	  <div class="panel-body">
+	  	<p>usuario: ${usuario.nome}</p>
+	    <p>email: ${usuario.email}</p>
+	    <p>cpf: ${usuario.cpf}</p>
+	    <p>telefone: ${usuario.telefone}</p>
+	    <p>senha: ${usuario.senha}</p>
+	    <p>ultimoLogin ${usuario.ultimoLogin }</p>
+	  
+	  </div>
+	</div>	  
+</div>
+	
+
 
 
 </body>

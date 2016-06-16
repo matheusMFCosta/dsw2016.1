@@ -17,12 +17,14 @@ class PersonagensClass {
 	String name;
 	int id;
 	int quantidade;
+	float preco;
 	
-	public PersonagensClass(String name, int id, int quantidade) {
+	public PersonagensClass(String name, int id, int quantidade, float preco) {
 		super();
 		this.name = name;
 		this.id = id;
 		this.quantidade = quantidade;
+		this.preco = preco;
 	}
 	public PersonagensClass() {
 		super();
@@ -44,6 +46,12 @@ class PersonagensClass {
 	}
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}
+	public float getPreco() {
+		return preco;
+	}
+	public void setPreco(float preco) {
+		this.preco = preco;
 	}
 	
 	
@@ -74,20 +82,35 @@ public class PersonagensDisponiveis  extends SimpleTagSupport {
 				}
 				if(create){
 					model.Personagens meuPersonagem = personagemAcesso.getPersonagem(i.getIdPersonagem());
-					PersonagensClass minhaPersonagemClass = new PersonagensClass(meuPersonagem.getNome(),meuPersonagem.getId(),i.getQuantidade());
+					PersonagensClass minhaPersonagemClass = new PersonagensClass(meuPersonagem.getNome(),meuPersonagem.getId(),i.getQuantidade(),i.getPrecoUnitario());
 					personagemTable.add(minhaPersonagemClass);
 				}
 			}
 		}
 	}
+
 	
+	out.write("</br> </br>");
+	out.write("<div class=\"panel panel-default \">");
+	out.write("<div class=\"panel-heading\">Personagens Disponiveis</div>");
+	out.write("<div class=\"panel-body\">");
+    
 	out.write("<form>");
-	out.write("        <fieldset style=\"width: 600px\">"+
-            "<legend> Lista de Personagems disponiveis </legend>");
-	out.write("<table>");
+	out.write("<table border=\"1\" style=\"width:100%\">");
+	
+	out.write("<tr>");
+	out.write("<td >Id</td>");
+	out.write("<td>Nome</td>");
+	out.write("<td>Quantidade</td>");
+	out.write("<td>preco</td>");
+	out.write("</tr>");
 	for(PersonagensClass i : personagemTable){
-		out.write("<tr>");
-		out.write("<td>ID:"+i.getId() +"  Name: "+i.getName()+" Quantidade: "+i.getQuantidade()+"</td>");
+
+
+		out.write("<td>"+i.getId() +" </td> ");
+		out.write("<td>"+i.getName() +" </td> ");
+		out.write("<td>"+i.getQuantidade() +" </td> ");
+		out.write("<td>"+i.getPreco() +" </td> ");
 		out.write("</tr>");
 		
 	}
@@ -96,9 +119,10 @@ public class PersonagensDisponiveis  extends SimpleTagSupport {
 	out.write("</table>");
 	out.write("</fildset>");
 	out.write("</form>");
+	
+	out.write("</div>");
+	out.write("</div>");
 	out.write("</br>");
-	out.write("</br>");
-  
 
   }
   

@@ -25,7 +25,7 @@
                 </li>
                 <li>
                 	<a href="/dsw/jsp/user/EditaUsuario.jsp" method="post">
-                    Editar Usuario
+                    Dados do Usuario
                     </a>
  
                 </li>
@@ -78,11 +78,7 @@
   <div class="col-sm-4">
 	
     <h3>Login Concluido!!!</h3>
-    <p>usuario: ${usuario.nome}</p>
-    <p>email: ${usuario.email}</p>
-    <p>cpf: ${usuario.cpf}</p>
-    <p>telefone: ${usuario.telefone}</p>
-    <p>senha: ${usuario.senha}</p>
+
     
 
     
@@ -92,14 +88,10 @@
 
 
 		</div>
-	  <div class="col-sm-3 col-md-3">
-	 <form action="/dsw/jsp/user/EditaSenha.jsp" method="post">
-    	<input type="submit" value="edita senha" 
-			name="Submit" id="frm1_submit" />
-	</form>
+
 		</div>
 	  <div class="col-sm-3 col-md-3">
-	<form action="/dsw/jsp/user/logoutServlet" method="post">
+	<form action="/dsw/logoutServlet" method="post">
     	<input type="submit" value="Log out" 
 			name="Submit" id="frm1_submit" />
 	</form>
