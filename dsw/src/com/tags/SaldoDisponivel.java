@@ -41,23 +41,27 @@ public class SaldoDisponivel extends SimpleTagSupport {
 	out.write("</div>");
     
     
-    
 	out.write("</br> </br>");
-	out.write("<div class=\"panel panel-default \">");
-	out.write("<div class=\"panel-heading\">Saldo Disponivel Personagem</div>");
-	out.write("<div class=\"panel-body\">");
-    
+
+	
+	
 	out.write("<form>");
+	out.write("        <fieldset style=\"width: 100%\">"+
+            "<legend> Saldo Disponivel Personagem </legend>");
 	out.write("<table border=\"1\" style=\"width:100%\">");
 	
-	out.write("<tr>");
-	out.write("<td >Id</td>");
-	out.write("<td>Nome</td>");
-	out.write("<td>Quantidade</td>");
-	out.write("</tr>");
-
+	
 
 	
+	out.write("<thead>");
+	out.write("<tr>");
+	out.write("<th >Id</th>");
+	out.write("<th>Nome</th>");
+	out.write("<th>Quantidade</th>");
+	out.write("</tr>");
+	out.write("</thead>");
+
+	out.write("<tbody>");
     for(int i =1; i<=63;i++){
     	numPersonagemDisponivel = meUsuarioAcesso.calculaSaldoDisponivelPersonagem(meuUsuario.getId(),i, 0);
     	if(numPersonagemDisponivel != 0){
@@ -71,12 +75,12 @@ public class SaldoDisponivel extends SimpleTagSupport {
     	}
 
     }
+	out.write("</tbody>");
 	out.write("</table>");
 	out.write("</fildset>");
 	out.write("</form>");
 	
-	out.write("</div>");
-	out.write("</div>");
+
 	out.write("</br>");
 
 	

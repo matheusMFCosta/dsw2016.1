@@ -91,19 +91,23 @@ public class PersonagensDisponiveis  extends SimpleTagSupport {
 
 	
 	out.write("</br> </br>");
-	out.write("<div class=\"panel panel-default \">");
-	out.write("<div class=\"panel-heading\">Personagens Disponiveis</div>");
-	out.write("<div class=\"panel-body\">");
+
+	out.write("        <fieldset style=\"width:100%\">"+
+            "<legend> Personagens Disponiveis </legend>");
     
 	out.write("<form>");
 	out.write("<table border=\"1\" style=\"width:100%\">");
 	
+	out.write("<thead>");
 	out.write("<tr>");
-	out.write("<td >Id</td>");
-	out.write("<td>Nome</td>");
-	out.write("<td>Quantidade</td>");
-	out.write("<td>preco</td>");
+	out.write("<th >Id</th>");
+	out.write("<th>Nome</th>");
+	out.write("<th>Quantidade</th>");
+	out.write("<th>preco</th>");
 	out.write("</tr>");
+	out.write("</thead>");
+	
+	out.write("<tbody>");
 	for(PersonagensClass i : personagemTable){
 
 
@@ -114,14 +118,14 @@ public class PersonagensDisponiveis  extends SimpleTagSupport {
 		out.write("</tr>");
 		
 	}
+	out.write("</tbody>");
 	
 
 	out.write("</table>");
 	out.write("</fildset>");
 	out.write("</form>");
 	
-	out.write("</div>");
-	out.write("</div>");
+
 	out.write("</br>");
 
   }

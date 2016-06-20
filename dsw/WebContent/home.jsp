@@ -51,15 +51,15 @@
 	  	<div class="col-sm-4">
 	  		<div class="row">
 	  		
-	  			<div class="col-sm-3">
+	  			<div class="col-sm-4">
 		    <form action="/dsw/jsp/user/createUser.jsp" method="post">
-		    	<input type="submit" value="createUser" 
+		    	<input type="submit" value="Criar usuario" 
 					name="Submit" id="frm1_submit" />
 			</form>
 				</div>
-				<div class="col-sm-1">
+				<div class="col-sm-3">
 			<form action="/dsw/jsp/user/EnviaToken.jsp" method="post">
-		    	<input type="submit" value="Forgot password?" 
+		    	<input type="submit" value="Recuperar Senha" 
 					name="Submit" id="frm1_submit" />
 			</form>
 				</div>
@@ -70,6 +70,7 @@
 	</br>
 	</hr>
 	</br>
+	<!--  
 	<div class="row">
 	   	<div class="col-sm-4"></div>
 	   	<div class="col-sm-4">
@@ -82,5 +83,6 @@
 	</form>
 	</div>
 	</div>
+	-->
 </body>
 </html>

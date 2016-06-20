@@ -451,5 +451,19 @@ public class ActionDsw extends Action {
 		
 	}
 	
+	@DisableUserVerification
+	@Error("/error")
+	@Success("/jsp/registros/Historico.jsp")		
+	public String historicoPersonagem() throws ActionException{
+		
+		
+		String initialDate = getParameter("initialDate");
+		String finalDate = getParameter("finalDate");
+		setAttribute("initialDate", initialDate);
+		setAttribute("finalDate", finalDate);
+		return SUCCESS;
+		
+	}
+	
 	
 }

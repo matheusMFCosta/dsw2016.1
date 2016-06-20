@@ -12,6 +12,7 @@ import javax.servlet.jsp.*;
 import java.io.*;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -100,6 +101,34 @@ public class Ordens  extends SimpleTagSupport {
 		return currentList3;
 	}
 
+	String getStatus(int statusCode){
+		String statusString = "";
+		if(statusCode ==0)
+			statusString = "aberta";
+		if(statusCode ==1)
+			statusString = "liquidada";
+		if(statusCode ==2)
+			statusString = "cancelada";
+		
+		return statusString;
+	}
+	String getData(String intStering){
+		System.out.println(intStering);
+		DateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+		Date thisDate = null;
+		try {
+			thisDate = (Date)formatter.parse(intStering);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(thisDate);
+		   int year = cal.get(Calendar.YEAR);
+		    int month = cal.get(Calendar.MONTH)+1;
+		    int day = cal.get(Calendar.DAY_OF_MONTH);
+		return day+"/"+month+"/"+year;
+	}
   public void doTag() throws JspException, IOException {
     JspWriter out = getJspContext().getOut();
 	Oferta newOferta = new Oferta();
@@ -113,21 +142,23 @@ public class Ordens  extends SimpleTagSupport {
 
 	
 	out.write("<form>");
-	out.write("        <fieldset style=\"width: 600px\">"+
+	out.write("        <fieldset style=\"width:100%\">"+
             "<legend> Lista de Ofertas de Venda </legend>");
 	out.write("<table border=\"1\" style=\"width:100%\">");
-	
+	out.write("<thead>");
 	out.write("<tr>");
-	out.write("<td >Id</td>");
-	out.write("<td>Personagem</td>");
-	out.write("<td>Quantidade</td>");
-	out.write("<td>Preco unitario</td>");
-	out.write("<td>Status</td>");
-	out.write("<td>Data</td>");
+	out.write("<th >Id</th>");
+	out.write("<th>Personagem</th>");
+	out.write("<th>Quantidade</th>");
+	out.write("<th>Preco unitario</th>");
+	out.write("<th>Status</th>");
+	out.write("<th>Data</th>");
 	out.write("</tr>");
+	out.write("</thead>");
 	
-	
+	out.write("<tbody>");
 	for(Ofertas i : meuPersonagemList){
+
 		out.write("<tr>");
 //		out.write("<td>ID:"+i.getId() +"  Personagem: "+i.getIdPersonagem()+" Quantidade: "+i.getQuantidade()+
 //				"  preco: "+i.getPrecoUnitario()+" Status: "+i.getStatus()+"data:"+i.getData()+"  </td>");
@@ -135,11 +166,12 @@ public class Ordens  extends SimpleTagSupport {
 		out.write("<td>"+i.getIdPersonagem()+"</td>");
 		out.write("<td>"+i.getQuantidade()+"</td>");
 		out.write("<td>"+i.getPrecoUnitario()+"</td>");
-		out.write("<td>"+i.getStatus()+"</td>");
-		out.write("<td>"+i.getData()+"</td>");
+		out.write("<td>"+getStatus(i.getStatus())+"</td>");
+		out.write("<td>"+getData(i.getData().toString())+"</td>");
 		out.write("</tr>");
 		
 	}
+	out.write("</tbody>");
 
 	out.write("</table>");
 	out.write("</fildset>");
@@ -153,30 +185,34 @@ public class Ordens  extends SimpleTagSupport {
 	meuPersonagemList =  newOferta.getUserOfertasCompraTable(meuUsuario.getId());
 	meuPersonagemList = this.Filter(meuPersonagemList);
 	out.write("<form>");
-	out.write("        <fieldset style=\"width: 600px\">"+
+	out.write("        <fieldset style=\"width: 100%\">"+
             "<legend> Lista de Ofertas de Compra </legend>");
 	out.write("<table border=\"1\" style=\"width:100%\">");
 	
+	out.write("<thead>");
 	out.write("<tr>");
-	out.write("<td >Id</td>");
-	out.write("<td>Personagem</td>");
-	out.write("<td>Quantidade</td>");
-	out.write("<td>Preco unitario</td>");
-	out.write("<td>Status</td>");
-	out.write("<td>Data</td>");
+	out.write("<th >Id</td>");
+	out.write("<th>Personagem</th>");
+	out.write("<th>Quantidade</th>");
+	out.write("<th>Preco unitario</th>");
+	out.write("<th>Status</th>");
+	out.write("<th>Data</th>");
 	out.write("</tr>");
+	out.write("</thead>");
+
 	
-	
+	out.write("<tbody>");
 	for(Ofertas i : meuPersonagemList){
 		out.write("<td >"+i.getId()+"</td>");
 		out.write("<td>"+i.getIdPersonagem()+"</td>");
 		out.write("<td>"+i.getQuantidade()+"</td>");
 		out.write("<td>"+i.getPrecoUnitario()+"</td>");
-		out.write("<td>"+i.getStatus()+"</td>");
-		out.write("<td>"+i.getData()+"</td>");
+		out.write("<td>"+getStatus(i.getStatus())+"</td>");
+		out.write("<td>"+getData(i.getData().toString())+"</td>");
 		out.write("</tr>");
 		
 	}
+	out.write("</tbody>");
 	out.write("</table>");
 	out.write("</fildset>");
 	out.write("</form>");

@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 <title>Welcome <%=session.getAttribute("usuario")%></title>
+<c:set var="usuario" value="${requestScope.usuario}" scope="page" />
 </head>
 <body>
 
@@ -20,7 +21,9 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Start Bootstrap
+                        Olá ${usuario.nome}
+
+                        
                     </a>
                 </li>
                 <li>
@@ -52,10 +55,16 @@
                     </a>
                 </li>
                 <li>
+                   	<a href="/dsw/jsp/registros/Historico.jsp" method="post">                
+                    	Historico de personagem
+                    </a>
+                </li>
+                <li>
                    	<a href="/dsw/jsp/compraEVenda/OfertaDeVenda.jsp" method="post">                
                     	Oferta de Venda
                     </a>
                 </li>
+                
 
                 <li>
                                        	<a href="/dsw/jsp/compraEVenda/OfertaDeCompra.jsp" method="post">                
@@ -77,7 +86,7 @@
   <div class="col-sm-4 col-md-4"></div>
   <div class="col-sm-4">
 	
-    <h3>Login Concluido!!!</h3>
+    <h3>Login Concluido</h3>
 
     
 
@@ -101,6 +110,12 @@
     </div>
           </div>
     </div>
+    
+    
+    
+    
+    
+    
                        </div>
                 </div>
             </div>

@@ -26,14 +26,18 @@ public class Personagens  extends SimpleTagSupport {
 	
 	
 	out.write("<form>");
-	out.write("        <fieldset style=\"width: 300px\">"+
+	out.write("        <fieldset style=\"width: 100%\">"+
             "<legend> Lista de Personagens </legend>");
 	out.write("<table border=\"1\" style=\"width:100%\">");
 	
+	out.write("<thead>");
 	out.write("<tr>");
-	out.write("<td >Id</td>");
-	out.write("<td>Personagem</td>");
+	out.write("<th >Id</th>");
+	out.write("<th>Personagem</th>");
 	out.write("</tr>");
+	out.write("</thead>");
+	
+	out.write("<tbody>");
 	for(model.Personagens i : meuPersonagemList){
 
 		out.write("<td>"+i.getId() +" </td> ");
@@ -42,6 +46,7 @@ public class Personagens  extends SimpleTagSupport {
 
 		
 	}
+	out.write("</tbody>");
 	out.write("</table>");
 	out.write("</fildset>");
 	out.write("</form>");
