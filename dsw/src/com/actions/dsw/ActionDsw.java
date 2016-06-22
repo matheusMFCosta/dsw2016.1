@@ -38,17 +38,17 @@ import com.actions.dsw.UserActions;
 
 public class ActionDsw extends Action {
 	
+	
+	//Redireciona para Home.jsp
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/home.jsp")
 	public String home() throws ActionException
 	{	
-			System.out.println(getParameter("usuario"));
-			System.out.println(getAttribute("usuario"));
         	return SUCCESS;
 	}
 	
-	
+	//Loga O Usuario
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/loginServlet")
@@ -83,7 +83,7 @@ public class ActionDsw extends Action {
         return ERROR;
 	}
 	
-			
+	//Cria um Usuario Novo
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/home.do")		
@@ -116,13 +116,13 @@ public class ActionDsw extends Action {
         if(meuUsuario.setUsuario(userName, userPhone, userCPF, userEmail, userPass))
         	return SUCCESS;
 
-    	setAttribute("nextPage", "jsp/user/createUser.jsp");
+    	setAttribute("nextPage", "/welcome.jsp");
     	setAttribute("errorMessage", "usuario existente");
 		return ERROR;
 		
 	}
 	
-	
+	//Envia token para o email do Usuario para recuperar senha
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/home.jsp")		
@@ -135,12 +135,11 @@ public class ActionDsw extends Action {
         UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
         Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail[0]);  
         if(meuUsuario ==null){
-        	setAttribute("nextPage", "jsp/user/EnviaToken.jsp");
+        	setAttribute("nextPage", "/welcome.jsp");
         	setAttribute("errorMessage", "Email invalido- Usuario nao existente");
         	return ERROR;
         }
-        
-        System.out.println(meuUsuario);
+
         int userId = meuUsuario.getId();     
         
         Random newRandom = new Random();
@@ -158,6 +157,7 @@ public class ActionDsw extends Action {
 		
 	}
 	
+	//Confirma o token enviado emviado para o Usuario
 	@DisableUserVerification
 	@Error("/RecuperaSenha.jsp")
 	@Success("/home.jsp")		
@@ -179,7 +179,7 @@ public class ActionDsw extends Action {
         Calendar calendar = Calendar.getInstance();
         
         if(!novaSenhaConfirmation.equals(novaSenha)){
-        	setAttribute("nextPage", "jsp/user/RecuperaSenha.jsp");
+        	setAttribute("nextPage", "/welcome.jsp");
         	setAttribute("errorMessage", "Senhas diferentes");
     		return ERROR;
         }
@@ -194,11 +194,12 @@ public class ActionDsw extends Action {
         	}
         }
         	  
-    	setAttribute("nextPage", "RecuperaSenha.jsp");
+    	setAttribute("nextPage", "welcome.jsp/");
     	setAttribute("errorMessage", "Token Invalido");
 		return ERROR;
 	}
 	
+	//Edita Um Usiario
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/loginServlet")		
@@ -209,7 +210,7 @@ public class ActionDsw extends Action {
         Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
       
         if(meuUsuario ==null){
-        	setAttribute("nextPage", "jsp/user/EditaUsuario.jsp");
+        	setAttribute("nextPage", "/welcome.jsp");
         	setAttribute("errorMessage", "Usuario invalido");
         	return ERROR;
         }
@@ -228,6 +229,7 @@ public class ActionDsw extends Action {
 		return SUCCESS;
 	}
 	
+	//Edita Senha do Usuario
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/loginServlet")		
@@ -238,7 +240,7 @@ public class ActionDsw extends Action {
         Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
          
         if(meuUsuario ==null){
-        	setAttribute("nextPage", "jsp/user/EditaSenha.jsp");
+        	setAttribute("nextPage", "/welcome.jsp");
         	setAttribute("errorMessage", "Usuario invalido");
         	return ERROR;
         }
@@ -249,14 +251,14 @@ public class ActionDsw extends Action {
         String OldUserPass =getParameter("OldUserPass");
         
         if(!userPass.equals(userPassConfirmation)){
-        	setAttribute("nextPage", "jsp/user/EditaSenha.jsp");
+        	setAttribute("nextPage", "/welcome.jsp");
         	setAttribute("errorMessage", "as senhas sao diferentes");
         	return ERROR;
         }
         
         
         if(!OldUserPass.equals(meuUsuario.getSenha())){
-        	setAttribute("nextPage", "EditaSenha.jsp");
+        	setAttribute("nextPage", "/welcome.jsp");
         	setAttribute("errorMessage", "senha antiga errada");
         	return ERROR;
         	
@@ -269,7 +271,7 @@ public class ActionDsw extends Action {
 		return SUCCESS;
 	}
 	
-	
+	//Pega um Usuario e fornece para o jsp
 	@DisableUserVerification
 	@Error("/EditaUsuario.jsp")
 	@Success("/EditaUsuario.jsp")		
@@ -284,12 +286,13 @@ public class ActionDsw extends Action {
 		return SUCCESS;
 	}
 	
-	
+	//Registra Uma transferencia
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/welcome.jsp")		
 	public String transferencia() throws ActionException{
 
+		String cpf = getParameter("cpf");
 		String bankNumber = getParameter("bankNumber");
 		String AccountNumber = getParameter("AccountNumber");
 		String ammount= getParameter("ammount");
@@ -297,24 +300,29 @@ public class ActionDsw extends Action {
 		String AgencyNumber = getParameter("AgencyNumber");
 		Transferencia minhasTranferencia = new Transferencia();
 		UsuarioAcesso meUsuarioAcesso = new UsuarioAcesso();
-        Usuarios meuUsuario = meUsuarioAcesso.getUsuario(userEmail);
+        Usuarios meuUsuario = meUsuarioAcesso.getUsuarioCpf(cpf);
+        
+
 		
 		if(Double.parseDouble(ammount) < 10){
-			setAttribute("nextPage", "jsp/registros/Transferencia.jsp");
+			setAttribute("nextPage", "/welcome.jsp");
 	    	setAttribute("errorMessage", "Valor minimo é de R$10,00");
 	    	return ERROR;
 		}
 		minhasTranferencia.registaTransferencia(meuUsuario.getId(),bankNumber,AgencyNumber,AccountNumber, Float.parseFloat(ammount));		
 
 		int meuSaldo = meUsuarioAcesso.calculaSaldoDisponivelDinheiro(meuUsuario.getId(),  2);
-
+		if(userEmail.equals(meuUsuario.getEmail())){
+			setAttribute("nextPage", "/welcome.jsp");
+	    	setAttribute("errorMessage", "Novo Saldo: "+meuSaldo);
+	    	return ERROR;
+		}
 		setAttribute("nextPage", "/welcome.jsp");
-    	setAttribute("errorMessage", "Novo Saldo: "+meuSaldo);
+    	setAttribute("errorMessage", "Nao é sua Conta - Saldo adicionado");
     	return ERROR;
-		
 	}
 	
-	
+	//Registra uma transferencia de Personagem
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/welcome.jsp")		
@@ -328,19 +336,27 @@ public class ActionDsw extends Action {
 		Transferencia transferenciaAcesso = new Transferencia();
 		UsuarioAcesso meUsuarioAcesso = new UsuarioAcesso();
         Usuarios meuUsuario = meUsuarioAcesso.getUsuario(userEmail);
-
+        
+        if(Integer.parseInt(personagemId) < 0 || Integer.parseInt(personagemId) > 64 ){
+			setAttribute("nextPage", "/welcome.jsp");
+	    	setAttribute("errorMessage", "Personagem não é valido");
+	    	return ERROR;
+        }
+        float meuSaldo = meUsuarioAcesso.calculaSaldoDisponivelPersonagem(meuUsuario.getId(), Integer.parseInt(personagemId), 0);
 		if(tipo.equals("Adicionar")){
 			transferenciaAcesso.adicionaPersonagem(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity));	
-			setAttribute("nextPage", "jsp/registros/RegistrarPersonagem.jsp");
+			setAttribute("nextPage", "/welcome.jsp");
 	    	setAttribute("errorMessage", "Personagem Adicionado");
 	    	return ERROR;
     	} else {
-			if( 0 == transferenciaAcesso.removerPersonagem(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity))){
-				setAttribute("nextPage", "jsp/registros/RegistrarPersonagem.jsp");
+
+			if( meuSaldo >= Float.parseFloat(quantity) && meuSaldo>0){
+				transferenciaAcesso.removerPersonagem(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity));
+				setAttribute("nextPage", "/welcome.jsp");
 		    	setAttribute("errorMessage", "Personagem Removido");
 		    	return ERROR;
 			} else {
-				setAttribute("nextPage", "jsp/registros/RegistrarPersonagem.jsp");
+				setAttribute("nextPage", "/welcome.jsp");
 		    	setAttribute("errorMessage", "Quantidade de personagens indisponivel");
 		    	return ERROR;
 			}
@@ -348,7 +364,7 @@ public class ActionDsw extends Action {
 	}
 	
 	
-	
+	//Registra Uma Oferta de venda
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/welcome.jsp")		
@@ -366,7 +382,7 @@ public class ActionDsw extends Action {
 		
 		if(1 == newOferta.registraOrdemVenda(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity), Float.parseFloat(price),0))
 		{
-			setAttribute("nextPage", "jsp/compraEVenda/OfertaDeVenda.jsp");
+			setAttribute("nextPage", "/welcome.jsp");
 	    	setAttribute("errorMessage", "Erro no registro");
 	    	return ERROR;
 		}
@@ -375,7 +391,7 @@ public class ActionDsw extends Action {
 	}
 	
 	
-	
+	//Registra Oferta de Compra
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/welcome.jsp")		
@@ -389,19 +405,18 @@ public class ActionDsw extends Action {
 		Oferta newOferta = new Oferta();
 		UsuarioAcesso meUsuarioAcesso = new UsuarioAcesso();
         Usuarios meuUsuario = meUsuarioAcesso.getUsuario(userEmail);
-		
-		
-		if(1 == newOferta.registraOrdemCompra(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity), Float.parseFloat(price),0))
+        	
+		if(0 != newOferta.registraOrdemCompra(meuUsuario.getId(), Integer.parseInt(personagemId), Integer.parseInt(quantity), Float.parseFloat(price),0))
 		{
-			setAttribute("nextPage", "jsp/compraEVenda/OfertaDeCompra.jsp");
-	    	setAttribute("errorMessage", "Erro no registro");
+			setAttribute("nextPage", "/welcome.jsp.jsp");
+	    	setAttribute("errorMessage", "algo d");
 	    	return ERROR;
 		}
 
 		return SUCCESS;
 	}
 	
-	
+	//Cancela uma Oferta de Usuario 
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/welcome.jsp")		
@@ -410,30 +425,35 @@ public class ActionDsw extends Action {
 		String orderId = getParameter("orderId");
 		String type = getParameter("type");
 		
-		System.out.println(orderId+"-"+type);
+
 		Oferta newOfertaAccess = new Oferta();
 		Ofertas minhaOferta = newOfertaAccess.getOferta(Integer.parseInt(orderId));
-		System.out.println("minhaOferta"+minhaOferta.getId());
+
 		if(minhaOferta == null ){
-			setAttribute("nextPage", "jsp/registros/Ofertas.jsp");
+			setAttribute("nextPage", "/welcome.jsp");
 	    	setAttribute("errorMessage", "Essa Oferta nao existe");
 	    	return ERROR;
 		}
 		
 		if(minhaOferta.getStatus() != 0 ){
-			setAttribute("nextPage", "jsp/registros/Ofertas.jsp");
+			setAttribute("nextPage", "/welcome.jsp");
 	    	setAttribute("errorMessage", "Essa Oferta já foi liquidada ou cancelada");
 	    	return ERROR;
 		}
 		
-		if(type.equals("compra"))
-		newOfertaAccess.cancelaOrdemCompra(Integer.parseInt(orderId));
+		System.out.println(orderId+"-ordem");
+		if(type.equals("compra")){
+			System.out.println("compra!");
+			newOfertaAccess.cancelaOrdemCompra(Integer.parseInt(orderId));
+			return SUCCESS;
+		}
 		
+		System.out.println("Venda!");
 		newOfertaAccess.CancelaOrdemVenda(Integer.parseInt(orderId));
 		return SUCCESS;
 	}
 	
-	
+	//Filtra ordens do usuario
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/jsp/registros/Ofertas.jsp")		
@@ -451,6 +471,7 @@ public class ActionDsw extends Action {
 		
 	}
 	
+	//Mostra Historico de personagens
 	@DisableUserVerification
 	@Error("/error")
 	@Success("/jsp/registros/Historico.jsp")		

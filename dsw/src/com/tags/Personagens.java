@@ -14,6 +14,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+//Mostra todos os personagens a serem negociados
 public class Personagens  extends SimpleTagSupport {
 
   public void doTag() throws JspException, IOException {

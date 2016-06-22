@@ -14,11 +14,11 @@ import model.Ofertas;
 import model.Usuarios;
 
 public class Oferta {
-	
+
 	private Connection myConn;
 	private int id;
 	private Date data;
-	private int idOfertaVenda ;
+	private int idOfertaVenda;
 	private int idOfertaCompra;
 	private int idPersonagem;
 	private int tipo;
@@ -26,21 +26,18 @@ public class Oferta {
 	private float precoUnitario;
 	private int status;
 	private int idOrdemOriginal;
-	
-	
-	public Oferta(){
+
+	public Oferta() {
 		super();
-		try{
-			this.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DSW", "root" , "123456");
+		try {
+			this.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DSW", "root", "123456");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public void getCasamentosOfertaTable() throws SQLException{
-		
+
+	public void getCasamentosOfertaTable() throws SQLException {
 
 		CasamentosOferta casamento;
 		Statement myStmtGetusuario = myConn.createStatement();
@@ -49,91 +46,35 @@ public class Oferta {
 			idOfertaVenda = myRSGetUsuario.getInt("idOfertaVenda");
 			idOfertaCompra = myRSGetUsuario.getInt("idOfertaCompra");
 			data = myRSGetUsuario.getDate("dataExecucao");
-			casamento = new CasamentosOferta (idOfertaVenda,idOfertaCompra,data);
+			casamento = new CasamentosOferta(idOfertaVenda, idOfertaCompra, data);
 			System.out.println(casamento);
 		}
 		System.out.println();
-		
+
 	}
-	
-public ArrayList<Ofertas>  getOfertasTable() {
-		
+
+	public ArrayList<Ofertas> getOfertasTable() {
+
 		ArrayList<Ofertas> meuUsuarioList = new ArrayList<Ofertas>();
-		try{
+		try {
 			Statement myStmtGetusuario = myConn.createStatement();
 			ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from ofertas");
 			while (myRSGetUsuario.next()) {
 				id = myRSGetUsuario.getInt("id");
-				tipo = myRSGetUsuario.getInt("tipo"); 
+				tipo = myRSGetUsuario.getInt("tipo");
 				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
 				int idUsuario = myRSGetUsuario.getInt("idUsuario");
 				java.util.Date minhaData = myRSGetUsuario.getDate("data");
 				int quantidade = myRSGetUsuario.getInt("quantidade");
 				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
-				int precoUnitario =   myRSGetUsuario.getInt("precoUnitario");
-				status =  myRSGetUsuario.getInt("status");
+				int precoUnitario = myRSGetUsuario.getInt("precoUnitario");
+				status = myRSGetUsuario.getInt("status");
 				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
-				
-				//(int id, int tipo, int idPersonagem, int idUsuario, java.util.Date data, float ,float , float , int , int)
-				Ofertas minhasOfertas = new Ofertas(id, tipo,idPersonagem,idUsuario, minhaData, quantidade, quantidadeOriginal, precoUnitario, status ,  idOrdemOriginal);
-				meuUsuarioList.add(minhasOfertas);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return meuUsuarioList;
-	}
-	
-public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
-	
-	ArrayList<Ofertas> meuUsuarioList = new ArrayList<Ofertas>();
-	try{
-		Statement myStmtGetusuario = myConn.createStatement();
-		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from ofertas where idUsuario="+id+ " AND tipo=0");
-		while (myRSGetUsuario.next()) {
-			id = myRSGetUsuario.getInt("id");
-			tipo = myRSGetUsuario.getInt("tipo"); 
-			idPersonagem = myRSGetUsuario.getInt("idPersonagem");
-			int idUsuario = myRSGetUsuario.getInt("idUsuario");
-			java.util.Date minhaData = myRSGetUsuario.getDate("data");
-			int quantidade = myRSGetUsuario.getInt("quantidade");
-			int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
-			float precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
-			status =  myRSGetUsuario.getInt("status");
-			idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
-			
-			//(int id, int tipo, int idPersonagem, int idUsuario, java.util.Date data, float ,float , float , int , int)
-			Ofertas minhasOfertas = new Ofertas(id, tipo,idPersonagem,idUsuario, minhaData, quantidade, quantidadeOriginal, precoUnitario, status ,  idOrdemOriginal);
-			meuUsuarioList.add(minhasOfertas);
-		}
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	return meuUsuarioList;
-}
 
-	public ArrayList<Ofertas>  getUserOfertasCompraTable(int id) {
-		
-		ArrayList<Ofertas> meuUsuarioList = new ArrayList<Ofertas>();
-		try{
-			Statement myStmtGetusuario = myConn.createStatement();
-			ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from ofertas where idUsuario="+id+ " AND tipo=1");
-			while (myRSGetUsuario.next()) {
-				id = myRSGetUsuario.getInt("id");
-				tipo = myRSGetUsuario.getInt("tipo"); 
-				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
-				int idUsuario = myRSGetUsuario.getInt("idUsuario");
-				java.util.Date minhaData = myRSGetUsuario.getDate("data");
-				int quantidade = myRSGetUsuario.getInt("quantidade");
-				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
-				float  precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
-				status =  myRSGetUsuario.getInt("status");
-				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
-				
-				//(int id, int tipo, int idPersonagem, int idUsuario, java.util.Date data, float ,float , float , int , int)
-				Ofertas minhasOfertas = new Ofertas(id, tipo,idPersonagem,idUsuario, minhaData, quantidade, quantidadeOriginal, precoUnitario, status ,  idOrdemOriginal);
+				// (int id, int tipo, int idPersonagem, int idUsuario,
+				// java.util.Date data, float ,float , float , int , int)
+				Ofertas minhasOfertas = new Ofertas(id, tipo, idPersonagem, idUsuario, minhaData, quantidade,
+						quantidadeOriginal, precoUnitario, status, idOrdemOriginal);
 				meuUsuarioList.add(minhasOfertas);
 			}
 		} catch (SQLException e) {
@@ -142,28 +83,92 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 		}
 		return meuUsuarioList;
 	}
-	
-	
-	
-	public Ofertas  getOferta(int id) {
-		
-		try{
+
+	public ArrayList<Ofertas> getUserOfertasVendaTable(int id) {
+
+		ArrayList<Ofertas> meuUsuarioList = new ArrayList<Ofertas>();
+		try {
 			Statement myStmtGetusuario = myConn.createStatement();
-			ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from ofertas where id="+id);
+			ResultSet myRSGetUsuario = myStmtGetusuario
+					.executeQuery("select * from ofertas where idUsuario=" + id + " AND tipo=0");
 			while (myRSGetUsuario.next()) {
 				id = myRSGetUsuario.getInt("id");
-				tipo = myRSGetUsuario.getInt("tipo"); 
+				tipo = myRSGetUsuario.getInt("tipo");
 				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
 				int idUsuario = myRSGetUsuario.getInt("idUsuario");
 				java.util.Date minhaData = myRSGetUsuario.getDate("data");
 				int quantidade = myRSGetUsuario.getInt("quantidade");
 				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
-				float precoUnitario =   myRSGetUsuario.getFloat("precoUnitario");
-				status =  myRSGetUsuario.getInt("status");
+				float precoUnitario = myRSGetUsuario.getFloat("precoUnitario");
+				status = myRSGetUsuario.getInt("status");
 				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
-				
-				//(int id, int tipo, int idPersonagem, int idUsuario, java.util.Date data, float ,float , float , int , int)
-				Ofertas minhasOfertas = new Ofertas(id, tipo,idPersonagem,idUsuario, minhaData, quantidade, quantidadeOriginal, precoUnitario, status ,  idOrdemOriginal);
+
+				// (int id, int tipo, int idPersonagem, int idUsuario,
+				// java.util.Date data, float ,float , float , int , int)
+				Ofertas minhasOfertas = new Ofertas(id, tipo, idPersonagem, idUsuario, minhaData, quantidade,
+						quantidadeOriginal, precoUnitario, status, idOrdemOriginal);
+				meuUsuarioList.add(minhasOfertas);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return meuUsuarioList;
+	}
+
+	public ArrayList<Ofertas> getUserOfertasCompraTable(int id) {
+
+		ArrayList<Ofertas> meuUsuarioList = new ArrayList<Ofertas>();
+		try {
+			Statement myStmtGetusuario = myConn.createStatement();
+			ResultSet myRSGetUsuario = myStmtGetusuario
+					.executeQuery("select * from ofertas where idUsuario=" + id + " AND tipo=1");
+			while (myRSGetUsuario.next()) {
+				id = myRSGetUsuario.getInt("id");
+				tipo = myRSGetUsuario.getInt("tipo");
+				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
+				int idUsuario = myRSGetUsuario.getInt("idUsuario");
+				java.util.Date minhaData = myRSGetUsuario.getDate("data");
+				int quantidade = myRSGetUsuario.getInt("quantidade");
+				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
+				float precoUnitario = myRSGetUsuario.getFloat("precoUnitario");
+				status = myRSGetUsuario.getInt("status");
+				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
+
+				// (int id, int tipo, int idPersonagem, int idUsuario,
+				// java.util.Date data, float ,float , float , int , int)
+				Ofertas minhasOfertas = new Ofertas(id, tipo, idPersonagem, idUsuario, minhaData, quantidade,
+						quantidadeOriginal, precoUnitario, status, idOrdemOriginal);
+				meuUsuarioList.add(minhasOfertas);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return meuUsuarioList;
+	}
+
+	public Ofertas getOferta(int id) {
+
+		try {
+			Statement myStmtGetusuario = myConn.createStatement();
+			ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from ofertas where id=" + id);
+			while (myRSGetUsuario.next()) {
+				id = myRSGetUsuario.getInt("id");
+				tipo = myRSGetUsuario.getInt("tipo");
+				idPersonagem = myRSGetUsuario.getInt("idPersonagem");
+				int idUsuario = myRSGetUsuario.getInt("idUsuario");
+				java.util.Date minhaData = myRSGetUsuario.getDate("data");
+				int quantidade = myRSGetUsuario.getInt("quantidade");
+				int quantidadeOriginal = myRSGetUsuario.getInt("quantidadeOriginal");
+				float precoUnitario = myRSGetUsuario.getFloat("precoUnitario");
+				status = myRSGetUsuario.getInt("status");
+				idOrdemOriginal = myRSGetUsuario.getInt("idOrdemOriginal");
+
+				// (int id, int tipo, int idPersonagem, int idUsuario,
+				// java.util.Date data, float ,float , float , int , int)
+				Ofertas minhasOfertas = new Ofertas(id, tipo, idPersonagem, idUsuario, minhaData, quantidade,
+						quantidadeOriginal, precoUnitario, status, idOrdemOriginal);
 				return minhasOfertas;
 			}
 		} catch (SQLException e) {
@@ -172,55 +177,51 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 		}
 		return null;
 	}
-	
-	
-	
-	
-	public int registraOrdemCompra(int idusuario ,int idPersonagem,int quantidade,float precoUnitario,int error){
+
+	public int registraOrdemCompra(int idusuario, int idPersonagem, int quantidade, float precoUnitario, int error) {
 		int erro = 0;
-		try{ 
+		try {
 			CallableStatement myStmt = myConn.prepareCall("{call RegistraOrdemCompra(?,?,?,?,?)}");
-			myStmt.setInt(1,idusuario );
-			myStmt.setInt(2,idPersonagem);
-			myStmt.setInt(3,quantidade);
-			myStmt.setFloat(4,precoUnitario);
-			
-			myStmt.execute();	
-			
-			error = myStmt.getInt(5);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return erro;
-	}
-	
-	public int registraOrdemVenda(int idusuario ,int idPersonagem,int quantidade,float precoUnitario,int error) {
-		int erro = 0;
-		try{
-			CallableStatement myStmt = myConn.prepareCall("{call RegistraOrdemVenda(?,?,?,?,?)}");
-			myStmt.setInt(1,idusuario);
-			myStmt.setInt(2,idPersonagem);
-			myStmt.setInt(3,quantidade);
-			myStmt.setFloat(4,precoUnitario);
-			myStmt.registerOutParameter(5,error);
+			myStmt.setInt(1, idusuario);
+			myStmt.setInt(2, idPersonagem);
+			myStmt.setInt(3, quantidade);
+			myStmt.setFloat(4, precoUnitario);
+			myStmt.setFloat(5, error);
 			myStmt.execute();
-			
-			
+
 			erro = myStmt.getInt(5);
-				
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 1;
 		}
 		return erro;
 	}
-	
-	
+
+	public int registraOrdemVenda(int idusuario, int idPersonagem, int quantidade, float precoUnitario, int error) {
+		int erro = 0;
+		try {
+			CallableStatement myStmt = myConn.prepareCall("{call RegistraOrdemVenda(?,?,?,?,?)}");
+			myStmt.setInt(1, idusuario);
+			myStmt.setInt(2, idPersonagem);
+			myStmt.setInt(3, quantidade);
+			myStmt.setFloat(4, precoUnitario);
+			myStmt.registerOutParameter(5, error);
+			myStmt.execute();
+
+			erro = myStmt.getInt(5);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 1;
+		}
+		return erro;
+	}
+
 	public void cancelaOrdemCompra(int idCompra) {
-		try{	
-			CallableStatement myStmt = myConn.prepareCall("{call CancelaOrdemVenda(?)}");
+		try {
+			CallableStatement myStmt = myConn.prepareCall("{call CancelaOrdemCompra(?)}");
 			myStmt.setInt(1, idCompra);
 			myStmt.execute();
 		} catch (NumberFormatException | SQLException e) {
@@ -229,8 +230,8 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 		}
 	}
 
-	public void CancelaOrdemVenda(int idVenda){
-		try{	
+	public void CancelaOrdemVenda(int idVenda) {
+		try {
 			CallableStatement myStmt = myConn.prepareCall("{call CancelaOrdemVenda(?)}");
 			myStmt.setInt(1, idVenda);
 			myStmt.execute();
@@ -239,7 +240,5 @@ public ArrayList<Ofertas>  getUserOfertasVendaTable(int id) {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 }

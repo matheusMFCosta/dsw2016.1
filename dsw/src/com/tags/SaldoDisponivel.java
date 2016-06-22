@@ -13,6 +13,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+//mostra Saldo Disponivel de um usuario 
 public class SaldoDisponivel extends SimpleTagSupport {
 	
 	private String userEmail = "";

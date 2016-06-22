@@ -45,8 +45,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/dsw/jsp/registros/Transferencia.jsp?bankNumber=123&AgencyNumber=12345&AccountNumber=123456&ammount=12" method="post">
-                    Transferencia
+                    <a href="/dsw/jsp/registros/Transferencia.jsp?cpf=12345678901&bankNumber=123&AgencyNumber=12345&AccountNumber=123456&ammount=12" method="post">
+                   Transferencia
                     </a>
                 </li>
                 <li>
@@ -113,8 +113,8 @@
 		<tr>  
 			<td>tipo:</td>
 			<td><select name="type">
-					<option value="Data Structures" selected>venda</option>
-					<option value="Data Mining">compra</option>
+					<option value="venda" selected>venda</option>
+					<option value="compra">compra</option>
 				</select>
 			</td>
 		</tr>

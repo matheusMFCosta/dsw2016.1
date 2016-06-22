@@ -6,10 +6,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 import model.LancamentosDinheiro;
 import model.Transferencias;
+import model.Usuarios;
 
 public class Transferencia {
 	
@@ -78,8 +80,10 @@ public class Transferencia {
 	
 	
 	
-	public void getLancamentosDinheiro() throws SQLException {
+	public ArrayList<LancamentosDinheiro> getLancamentosDinheiro() {
 
+		ArrayList<LancamentosDinheiro> meuUsuarioList = new ArrayList<LancamentosDinheiro>();
+		try{
 		Statement myStmtGetusuario = myConn.createStatement();
 		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from lancamentosDinheiro");
 		while (myRSGetUsuario.next()) {
@@ -90,9 +94,14 @@ public class Transferencia {
 			valor =   myRSGetUsuario.getFloat("valor");
 			operacao = myRSGetUsuario.getInt("operacao");
 			LancamentosDinheiro meuLancamentoDinheiro = new LancamentosDinheiro(id,idUsuario,minhaData,historico,valor,operacao);
-			System.out.println(meuLancamentoDinheiro);
+			meuUsuarioList.add(meuLancamentoDinheiro );
 		}
-		System.out.println();
+		
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return meuUsuarioList;
 	}
 	
 	
@@ -118,12 +127,14 @@ public class Transferencia {
 			myStmt.setInt(1,id);
 			myStmt.setInt(2,idPersonagem);
 			myStmt.setInt(3,quantidade);
+			myStmt.setInt(4,error);
 			
 			myStmt.execute();	
 			error = myStmt.getInt(4);
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			error =1;
 		}	
 		return error;
 	}

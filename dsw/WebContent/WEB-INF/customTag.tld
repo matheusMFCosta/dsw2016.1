@@ -40,7 +40,7 @@
 	 </attribute>
   </tag>
   
-       <tag>
+   <tag>
     <name>Historico</name>
     <tag-class>com.tags.Historico</tag-class>
     <body-content>empty</body-content>
@@ -55,6 +55,31 @@
 		 <rtexprvalue>true</rtexprvalue>
 	 </attribute>
   </tag>
+  
+  
+  <tag>
+    <name>Extrato</name>
+    <tag-class>com.tags.Extrato</tag-class>
+    <body-content>empty</body-content>
+         <attribute>
+		 <name>userEmail</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+     <attribute>
+		 <name>initialDate</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+	      <attribute>
+		 <name>finalDate</name>
+		 <required>false</required>
+		 <rtexprvalue>true</rtexprvalue>
+	 </attribute>
+  </tag>
+  
+  
+  
   
     <tag>
     <name>SaldoDisponivel</name>

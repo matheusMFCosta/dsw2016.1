@@ -7,8 +7,10 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import dswBD.CasamentosAcesso;
 import dswBD.Oferta;
 import dswBD.Personagem;
+import dswBD.Transferencia;
 import dswBD.UsuarioAcesso;
 import model.CasamentosOferta;
+import model.LancamentosDinheiro;
 import model.Ofertas;
 import model.Usuarios;
 
@@ -24,12 +26,22 @@ import java.util.Date;
 
  
 //Responsavel por mostrar Historico e informações da compra e venda de Personagens
-public class Historico  extends SimpleTagSupport {
+public class Extrato  extends SimpleTagSupport {
 	
 	private String initialDate;
 	private String FinalDate;
+	private String userEmail;
+	
 
 	
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
 	public String getInitialDate() {
 		return initialDate;
 	}
@@ -46,25 +58,29 @@ public class Historico  extends SimpleTagSupport {
 		FinalDate = finalDate;
 	}
 
-	public ArrayList<Ofertas> Filter ( ArrayList<CasamentosOferta> InOferList) throws java.text.ParseException{
-		ArrayList<Ofertas> oferList = new ArrayList<Ofertas>();
-		Oferta minhaOferta = new Oferta();
-			for(CasamentosOferta i: InOferList){
-				oferList.add(minhaOferta.getOferta(i.getIdOfertaCompra()));
-			}
-		ArrayList<Ofertas> currentList = new ArrayList<Ofertas>();
-
+	public ArrayList<LancamentosDinheiro>Filter ( ArrayList<LancamentosDinheiro> InOferList, String userEmail) throws java.text.ParseException{
+		
+		UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+		Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+		ArrayList<LancamentosDinheiro> userLancamentos = new  ArrayList<LancamentosDinheiro>();
+		ArrayList<LancamentosDinheiro> currentList = new  ArrayList<LancamentosDinheiro>();
+		
+		for(LancamentosDinheiro i : InOferList ){
+			if(i.getIdusuario() == meuUsuario.getId()){
+				userLancamentos.add(i);
+			}	
+		}
 		
 		if(initialDate.equals("") &&  FinalDate.equals(""))
-			return oferList;
+			return userLancamentos;
 		
-		
+		//Ja foi filtrado o usuario =)
 		DateFormat formatter = new SimpleDateFormat("yy-MM-dd");
 
 
 		Date initialDateObject = (Date)formatter.parse(initialDate);
 		Date finalDateObject = (Date)formatter.parse(FinalDate);	
-		for(Ofertas i : oferList){
+		for(LancamentosDinheiro i : userLancamentos){
 			DateFormat formatterSql = new SimpleDateFormat("yy-MM-dd");	
 			Date actualDate = (Date)formatterSql.parse(i.getData().toString());
 
@@ -75,7 +91,7 @@ public class Historico  extends SimpleTagSupport {
 			finalDateObject= c.getTime();
 			
 			
-			if( (initialDateObject.before(actualDate) &&finalDateObject.after(actualDate)) && i.getTipo()==1){
+			if( (initialDateObject.before(actualDate) &&finalDateObject.after(actualDate))){
 			    currentList.add(i);   
 			}
 						
@@ -88,54 +104,60 @@ public class Historico  extends SimpleTagSupport {
     JspWriter out = getJspContext().getOut();
 	Oferta newOferta = new Oferta();
 	CasamentosAcesso meuCasamento = new CasamentosAcesso();
-	UsuarioAcesso meUsuarioAcesso = new UsuarioAcesso();
+	UsuarioAcesso meuUsuarioAcesso = new UsuarioAcesso();
+	Usuarios meuUsuario = meuUsuarioAcesso.getUsuario(userEmail);
+	float saldo = meuUsuarioAcesso.calculaSaldoDisponivelDinheiro(meuUsuario.getId(), 0);
 	
-	ArrayList<CasamentosOferta> meuPersonagemListFilter =  meuCasamento.getCasamentoOfertas();
-	ArrayList<Ofertas> meuPersonagemList =  newOferta.getOfertasTable();
+	Transferencia minhaTransferenciaAcesso = new Transferencia();
+	
+	ArrayList<LancamentosDinheiro> minhaTransferencia = minhaTransferenciaAcesso.getLancamentosDinheiro();
+	
 	try {
-		meuPersonagemList = this.Filter(meuPersonagemListFilter);
+		minhaTransferencia = this.Filter(minhaTransferencia,userEmail);
 	} catch (java.text.ParseException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	
-	float[][]  meusValores = new float[63][2];
-	for(Ofertas i:  meuPersonagemList){
-		meusValores[i.getIdPersonagem()][0] = meusValores[i.getIdPersonagem()][0]+i.getPrecoUnitario();
-		meusValores[i.getIdPersonagem()][1] = meusValores[i.getIdPersonagem()][1]+ i.getQuantidade();
-	}
-	Personagem meuAcessoPersonagem = new Personagem();
+	
 
 
 	
 	out.write("<form>");
 	out.write("        <fieldset style=\"width: 100%\">"+
-            "<legend> Lista de Personagens</legend>");
+            "<legend> Extrato</legend>");
 	out.write("<table border=\"1\" style=\"width:100%\">");
 	
 	out.write("<thead>");
 	out.write("<tr>");
 	out.write("<th >Id</th>");
-	out.write("<th>Personagem</th>");
-	out.write("<th>Valor Medio </th>");
-	out.write("<th>Valor Total</th>");
-	out.write("<th>Quantidade Vendida</th>");
+	out.write("<th>Acao</th>");
+	out.write("<th>Data </th>");
+	out.write("<th>Valor</th>");
+	out.write("<th>saldo</th>");
 	out.write("</tr>");
 	out.write("</thead>");
 	
 	out.write("<tbody>");
-	for(int  i=0; i<63; i++){
-		float valorMedio = meusValores[i][0]/meusValores[i][1];
-		model.Personagens meupersonagem = meuAcessoPersonagem.getPersonagem(i);
-		if(meusValores[i][1]>0){
+	saldo =0;
+	int index=0;
+	for(LancamentosDinheiro i:  minhaTransferencia){
+		index++;
+			if(i.getOperacao() == 0 || i.getOperacao() == 3 ){
+				saldo = saldo + i.getValor();
+			}
+			if(i.getOperacao() == 1 || i.getOperacao() == 2 ){
+				saldo = saldo - i.getValor();
+			}
+			
 			out.write("<tr>");
-			out.write("<td>"+i+"</td>");
-			out.write("<td>"+meupersonagem.getNome()+"</td>");
-			out.write("<td>"+valorMedio+"</td>");
-			out.write("<td>"+meusValores[i][0] +"</td>");
-			out.write("<td>"+meusValores[i][1]+"</td>");
+			out.write("<td>"+index+"</td>");
+			out.write("<td>"+i.getHistorico()+"</td>");
+			out.write("<td>"+ i.getData()+"</td>");
+			out.write("<td>"+i.getValor()+"</td>");
+			out.write("<td>"+saldo+"</td>");
 			out.write("</tr>");
-		}
+		
 	}
 	out.write("</tbody>");
 

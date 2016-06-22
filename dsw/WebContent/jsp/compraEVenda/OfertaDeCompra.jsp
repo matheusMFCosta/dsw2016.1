@@ -6,6 +6,7 @@
 <html>
 <head>
 <link href="../../style.css" rel="stylesheet">
+<link href="../../../WebContent/style.css" rel="stylesheet">
 <%@ taglib prefix="ex" uri="../../WEB-INF/customTag.tld"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -40,7 +41,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/dsw/jsp/registros/Transferencia.jsp?bankNumber=123&AgencyNumber=12345&AccountNumber=123456&ammount=12" method="post">
+                    <a href="/dsw/jsp/registros/Transferencia.jsp?cpf=12345678901&bankNumber=123&AgencyNumber=12345&AccountNumber=123456&ammount=12" method="post">
                     Transferencia
                     </a>
                 </li>

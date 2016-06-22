@@ -28,10 +28,15 @@ public class ErrorServlet extends HttpServlet{
         String nexPage = (String) request.getAttribute("nextPage");
         String errorMessage=(String) request.getAttribute("errorMessage");
 
-  		
-		System.out.println("---"+nexPage);
-		System.out.println("---"+errorMessage);
+        out.print("<div style=\"background-color:#FFAAAA\">"); 
+		out.print("<div  class=\"row\">"); 
+		out.print("<div class=\"col-sm-5\"></div>"); 
+		out.print("<div class=\"col-sm-6\">"); 
+		
 		out.print("<p style=\"color:red\">"+errorMessage+"</p>"); 
+		out.print("</div>"); 
+		out.print("</div>"); 
+		out.print("</div>");
 	    RequestDispatcher rd=request.getRequestDispatcher(nexPage);  
 	    rd.include(request,response);  
 

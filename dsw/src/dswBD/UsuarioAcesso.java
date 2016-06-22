@@ -172,8 +172,39 @@ public class UsuarioAcesso  {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		return null;
+	}	
 	}
-		
+	
+	public Usuarios getUsuarioCpf(String cpf) {
+	try{	
+
+		Usuarios meuUsuario = null;
+		Statement myStmtGetusuario = myConn.createStatement();
+		String[] arrayList;
+		ResultSet myRSGetUsuario = myStmtGetusuario.executeQuery("select * from usuarios where cpf="+cpf);
+
+		while (myRSGetUsuario.next()) {
+			
+			id = myRSGetUsuario.getInt("id");
+			cpf = myRSGetUsuario.getString("cpf");
+			email = myRSGetUsuario.getString("email");
+			nome = myRSGetUsuario.getString("nome");
+			telefone = myRSGetUsuario.getString("telefone");
+			senha = myRSGetUsuario.getString("senha");
+			administrador = myRSGetUsuario.getBoolean("administrator");
+			ultimoLogin = myRSGetUsuario.getDate("ultimoLogin");
+			numeroLogins = myRSGetUsuario.getInt("numeroLogins");
+
+				meuUsuario = new Usuarios(id, nome,email, telefone, cpf, senha, "foto", administrador, ultimoLogin, numeroLogins);
+				return meuUsuario;
+		}
+
+		return null;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+	}	
 	}
 	
 	public int calculaSaldoDisponivelDinheiro(int idUsuario, int saldo){
@@ -190,6 +221,8 @@ public class UsuarioAcesso  {
 		return 0;
 
 	}
+	
+	
 
 	public int calculaSaldoDisponivelPersonagem( int idUsuario,int idPersonagem, int saldo) {
 		try{ 	

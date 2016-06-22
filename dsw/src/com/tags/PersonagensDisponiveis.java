@@ -13,6 +13,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+//Lista todos os personagens Disponiveis
 class PersonagensClass {
 	String name;
 	int id;

@@ -20,7 +20,7 @@ import java.util.Date;
 
 
  
-
+//Monstra todas as ordens de compra e venda 
 public class Ordens  extends SimpleTagSupport {
 	
 	private String userEmail = "";

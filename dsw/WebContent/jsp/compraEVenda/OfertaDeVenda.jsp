@@ -40,8 +40,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/dsw/jsp/registros/Transferencia.jsp?bankNumber=123&AgencyNumber=12345&AccountNumber=123456&ammount=12" method="post">
-                    Transferencia
+                    <a href="/dsw/jsp/registros/Transferencia.jsp?cpf=12345678901&bankNumber=123&AgencyNumber=12345&AccountNumber=123456&ammount=12" method="post">
+                   Transferencia
                     </a>
                 </li>
                 <li>
